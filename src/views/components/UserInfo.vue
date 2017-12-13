@@ -1,11 +1,10 @@
 <template>
   <el-dropdown @command="handleCommand">
   <span class="el-dropdown-link">
-    杨春来<i class="el-icon-arrow-down el-icon--right"></i>
+    {{name}}<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
     <el-dropdown-item command="modpass">修改密码</el-dropdown-item>
-    <el-dropdown-item command="settings">设置</el-dropdown-item>
     <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
   </el-dropdown-menu>
   </el-dropdown>
@@ -23,6 +22,15 @@
 
 <script>
 	export default{
+    data(){
+      return{
+        name:''
+      }
+    },
+    mounted(){
+      let user=JSON.parse(sessionStorage.getItem('user'));
+      this.name=user.name;
+    },
 		methods:{
 			handleCommand(command){
         if(command=="logout"){

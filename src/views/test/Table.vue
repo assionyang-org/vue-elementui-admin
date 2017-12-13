@@ -16,7 +16,7 @@
     </el-col>
  
 	<el-col :span="24">
-    <el-table :data="users" style="width: 100%;">
+    <el-table :data="users" v-loading="listLoading" style="width: 100%;">
 			<el-table-column type="selection" width="55">
 			</el-table-column>
 			<el-table-column type="index" width="60">
@@ -58,6 +58,7 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
 				users: [],
 				total: 100,
 				page: 1,
+				listLoading: false
 			}
 		},
 		methods:{
@@ -66,10 +67,11 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
 					page: this.page,
 					name: ''
 				};
+				this.listLoading = true;
 				getUserListPage(para).then((res) => {
 					this.total = res.data.total;
 					this.users = res.data.users;
-					//NProgress.done();
+					this.listLoading = false;
 				});
 			}
 		},

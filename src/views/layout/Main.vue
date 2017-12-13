@@ -1,5 +1,5 @@
 <template>
-<el-container>
+<el-container v-loading="sysloading">
   	<el-header class="header">
       <el-col :span="12">
         <el-col :span="6" :class="collapsed?'logo-mini':'logo-long'">
@@ -55,7 +55,8 @@ import UserInfo from '@/views/components/UserInfo'
 			return{
 				logoLongName:'Vue ElementUI Admin',
 				logoMiniName:'V',
-			  collapsed:false
+			  collapsed:false,
+        sysloading:true
 			}
 		},
 		methods: {
@@ -63,7 +64,12 @@ import UserInfo from '@/views/components/UserInfo'
 			collapse:function(){
 				this.collapsed=!this.collapsed;
 			}
-		}
+		},
+    mounted(){
+      setTimeout(() => {
+        this.sysloading=false;
+      }, 1000);
+    }
 	}
 </script>
 
