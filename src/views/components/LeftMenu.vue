@@ -76,12 +76,16 @@ import {getMenus} from '../../service/api';
 </script>
 <style>
   ul.el-menu > li > ul > li.is-active {
-    background:rgb(62,144,254) !important;
+    background: rgb(62,144,254) !important;
   }
+
   ul.el-menu > li.is-active {
     background:rgb(62,144,254) !important;
   }
+  ul.el-menu > li > ul > li {
+    background: rgb(1,12,23) !important;
+  }
   ul.el-menu > li > ul > li .el-submenu__title {
-    background:rgb(3, 21, 41) !important;
+    background: rgb(1,12,23) !important;
   }
 </style>
