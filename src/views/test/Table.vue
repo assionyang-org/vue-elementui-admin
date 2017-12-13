@@ -14,11 +14,7 @@
 			</el-form-item>
 		</el-form>
     </el-col>
-    <el-alert>
-    title="带辅助性文字介绍"
-    type="success"
-    description="这是一句绕口令：黑灰化肥会挥发发灰黑化肥挥发；灰黑化肥会挥发发黑灰化肥发挥。 黑灰化肥会挥发发灰黑化肥黑灰挥发化为灰……">
-  </el-alert>
+ 
 	<el-col :span="24">
     <el-table :data="users" style="width: 100%;">
 			<el-table-column type="selection" width="55">
@@ -53,148 +49,33 @@
 </template>
 
 <script>
+import util from '../../common/util'
+import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../service/api';
 	export default{
 		name:'Table',
 		data(){
 			return {
-				users: [
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  },
-				  {
-				  	name:'张三',
-				  	sex:'男',
-				  	age:'29',
-				  	birth:'1988-06-01',
-				  	addr:'上海市杨浦区'
-				  }
-				],
+				users: [],
 				total: 100,
 				page: 1,
 			}
+		},
+		methods:{
+			getUsers(){
+				let para = {
+					page: this.page,
+					name: ''
+				};
+				getUserListPage(para).then((res) => {
+					this.total = res.data.total;
+					this.users = res.data.users;
+					//NProgress.done();
+				});
+			}
+		},
+		mounted(){
+			console.log('ok');
+			this.getUsers();
 		}
 	}
 </script>

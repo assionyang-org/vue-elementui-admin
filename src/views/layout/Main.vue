@@ -53,8 +53,8 @@ import UserInfo from '@/views/components/UserInfo'
 		},
 		data(){
 			return{
-				logoLongName:'国烨电商ERP',
-				logoMiniName:'商',
+				logoLongName:'Vue ElementUI Admin',
+				logoMiniName:'V',
 			  collapsed:false
 			}
 		},

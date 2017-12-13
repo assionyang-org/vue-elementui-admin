@@ -15,6 +15,11 @@ import Notify from '@/views/test/Notify'
 import Collapse from '@/views/test/Collapse'
 import Dialog from '@/views/test/Dialog'
 import Upload from '@/views/test/Upload'
+import Department from '@/views/system/Department'
+import Employee from '@/views/system/Employee'
+import User from '@/views/system/User'
+import Auth from '@/views/system/Auth'
+import Role from '@/views/system/Role'
 
 Vue.use(Router)
 
@@ -95,12 +100,36 @@ export default new Router({
             path:'Table',
             name:'表格',
             component:Table
-        }
-        ,
+        },
         {
             path:'dashboard',
             name:'dashboard',
             component:Dashboard
+        },
+        {
+            path:'department',
+            name:'部门管理',
+            component:Department
+        },
+        {
+            path:'employee',
+            name:'员工',
+            component:Employee
+        },
+        {
+            path:'user',
+            name:'帐号管理',
+            component:User
+        },
+        {
+            path:'role',
+            name:'角色管理',
+            component:Role
+        },
+        {
+            path:'auth',
+            name:'权限管理',
+            component:Auth
         }
       ]
     },
