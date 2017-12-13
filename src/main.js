@@ -16,12 +16,26 @@ Vue.config.productionTip = false
 Mock.bootstrap();
 
 router.beforeEach((to,from,next)=>{
-	if(to.path=='/login'){
-		sessionStorage.removeItem('user');
+	if(to.path=='/404'){
+		next();
+		return;
 	}
 	let user=JSON.parse(sessionStorage.getItem('user'));
 	if(!user && to.path!='/login'){
 		next({path:'/login'});
+	}else if(to.path!='/message' && to.path!='/login'){
+		let isAuth=false;
+		user.auths.forEach(function(auth){
+			if(auth.path==to.path){
+				isAuth=true;
+			}
+			
+		});
+        if(isAuth){
+        	next();
+        }else{
+        	next('/message');
+        }		
 	}else{
 		next();
 	}

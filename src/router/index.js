@@ -4,6 +4,7 @@ import Main from '@/views/layout/Main'
 import Blank from '@/views/layout/Blank'
 import Login from '@/views/Login'
 import NotFound from '@/views/404'
+import Message from '@/views/message'
 import Test1 from '@/views/test/Test1'
 import Test2 from '@/views/test/Test2'
 import Form from '@/views/test/Form'
@@ -50,6 +51,11 @@ export default new Router({
         {
             path:'/',
             redirect:{path:'/dashboard'}
+        },
+        {
+        path:'/message',
+        name:'Message',
+        component:Message
         },
         {
             path:'vuextest',

@@ -40,6 +40,7 @@
           cancelButtonText: '取消',
           type: 'warning'
         }).then(() => {
+          sessionStorage.removeItem('user');
           this.$router.push({path:'/login'});
         }).catch(() => {
         

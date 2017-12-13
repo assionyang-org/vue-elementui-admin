@@ -111,7 +111,7 @@ const Menus=[
   	  id:14,
   	  name:'Login',
   	  path:'login',
-  	  icon:'el-icon-setting',
+  	  icon:'el-icon-circle-check',
   	  title:'登录页',
   	  children:[]
   },

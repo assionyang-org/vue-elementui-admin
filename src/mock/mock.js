@@ -1,6 +1,6 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
-import { LoginUsers, Users } from './data/user';
+import { LoginUsers,LoginUsers2, Users } from './data/user';
 import {Menus} from './data/menu';
 let _Users = Users;
 
@@ -27,13 +27,24 @@ export default {
       return new Promise((resolve, reject) => {
         let user = null;
         setTimeout(() => {
-          let hasUser = LoginUsers.some(u => {
+          let hasUser = false;
+          hasUser= LoginUsers.some(u => {
             if (u.username === username && u.password === password) {
               user = JSON.parse(JSON.stringify(u));
               user.password = undefined;
               return true;
             }
           });
+
+          if(!hasUser){
+            hasUser= LoginUsers2.some(u => {
+            if (u.username === username && u.password === password) {
+              user = JSON.parse(JSON.stringify(u));
+              user.password = undefined;
+              return true;
+            }
+            });
+          }
 
           if (hasUser) {
             resolve([200, { code: 200, msg: '请求成功', user }]);
