@@ -7,10 +7,13 @@ import Vuex from 'vuex'
 import store from './store/store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
+import Mock from './mock'
 
 Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.config.productionTip = false
+
+Mock.bootstrap();
 
 /* eslint-disable no-new */
 new Vue({
@@ -21,3 +24,6 @@ new Vue({
   components: { App }
 })
 
+Vue.filter('getYMD',function(input){
+	return input.split(' ')[0];
+})
