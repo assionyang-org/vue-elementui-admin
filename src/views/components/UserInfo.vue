@@ -4,9 +4,9 @@
     杨春来<i class="el-icon-arrow-down el-icon--right"></i>
   </span>
   <el-dropdown-menu slot="dropdown">
-    <el-dropdown-item command="a">修改密码</el-dropdown-item>
-    <el-dropdown-item command="b">设置</el-dropdown-item>
-    <el-dropdown-item command="d" divided>退出</el-dropdown-item>
+    <el-dropdown-item command="modpass">修改密码</el-dropdown-item>
+    <el-dropdown-item command="settings">设置</el-dropdown-item>
+    <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
   </el-dropdown-menu>
   </el-dropdown>
 </template>
@@ -25,7 +25,19 @@
 	export default{
 		methods:{
 			handleCommand(command){
-				this.$message('click on item'+command);
+        if(command=="logout"){
+          
+          this.$confirm('确认退出系统吗?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+          this.$router.push({path:'/login'});
+        }).catch(() => {
+        
+        });
+        }
+				
 			}
 		}
 	}

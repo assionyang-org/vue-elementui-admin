@@ -9,12 +9,13 @@
     </el-form-item>
     <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
-      <el-button type="primary" style="width:100%;" @click.native.prevent="handleSubmit2" :loading="logining">登录</el-button>
+      <el-button type="primary" style="width:100%;" @click.native.prevent="loginIn" :loading="logining">登录</el-button>
       <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
 </template>
 <script>
+import {requestLogin} from '../service/api';
   export default {
     name:'Login',
     data() {
@@ -22,7 +23,7 @@
         logining: false,
         ruleForm2: {
           account: 'admin',
-          checkPass: ''
+          checkPass: '123456'
         },
         rules2: {
           account: [
@@ -41,10 +42,26 @@
       handleReset2() {
         this.$refs.ruleForm2.resetFields();
       },
-      handleSubmit2(ev) {
+      loginIn(ev) {
         this.$refs.ruleForm2.validate((valid) => {
           if(valid){
-            this.$router.push({ path: '/' });
+            this.logining=true;
+            var loginParams={username:this.ruleForm2.account,password:this.ruleForm2.checkPass};
+            requestLogin(loginParams).then(data=>{
+              this.logining=false;
+              let {msg,code,user}=data;
+              if(code!=200){
+                this.$message({
+                  message:msg,
+                  type:'error'
+                });
+              }else{
+                sessionStorage.setItem('user',JSON.stringify(user));
+                this.$router.push({path:'/'});
+              }
+            });
+          }else{
+            return false;
           }
         });
       }
