@@ -1,3 +1,4 @@
+# install dependencies
 npm install
 npm install vuex
 npm install element-ui
