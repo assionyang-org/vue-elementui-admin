@@ -1,6 +1,10 @@
 <template>
   <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="login-container">
     <h3 class="title">电商管理系统</h3>
+    <el-alert style="margin-bottom:10px;"
+    title="帐号admin或guest，密码123456，帐号权限不同!"
+    type="success">
+  </el-alert>
     <el-form-item prop="account">
       <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
     </el-form-item>
@@ -22,8 +26,8 @@ import {requestLogin} from '../service/api';
       return {
         logining: false,
         ruleForm2: {
-          account: 'admin',
-          checkPass: '123456'
+          account: '',
+          checkPass: ''
         },
         rules2: {
           account: [
