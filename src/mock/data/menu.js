@@ -11,8 +11,8 @@ const Menus=[
   },
   {
   	  id:2,
-  	  name:'control',
-  	  path:'',
+  	  name:'Control',
+  	  path:'control',
   	  icon:'el-icon-location',
   	  title:'组件',
   	  children:[
@@ -114,6 +114,64 @@ const Menus=[
   	  icon:'el-icon-setting',
   	  title:'登录页',
   	  children:[]
+  },
+  {
+      id:15,
+      name:'System',
+      path:'system',
+      icon:'el-icon-setting',
+      title:'系统管理',
+      children:[
+          {
+            id:16,
+            name:'Department',
+            path:'department',
+            icon:'',
+            title:'部门管理',
+            children:[]
+          },
+          {
+            id:17,
+            name:'Employee',
+            path:'employee',
+            icon:'',
+            title:'员工管理',
+            children:[]
+          },
+          {
+            id:18,
+            name:'User',
+            path:'user',
+            icon:'',
+            title:'帐号管理',
+            children:[]
+          },
+          {
+            id:19,
+            name:'RoleAuth',
+            path:'',
+            icon:'',
+            title:'权限管理',
+            children:[
+               {
+                 id:20,
+                 name:'Role',
+                 path:'role',
+                 icon:'',
+                 title:'角色',
+                 children:[]
+               },
+               {
+                 id:21,
+                 name:'Auth',
+                 path:'auth',
+                 icon:'',
+                 title:'权限',
+                 children:[]
+               }
+            ]
+          }
+      ]
   }
 ]
 

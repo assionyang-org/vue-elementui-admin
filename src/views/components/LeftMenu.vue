@@ -20,7 +20,7 @@
           <span slot="title">{{menu.title}}</span>
           </el-menu-item>
           <!--判断是否有子菜单，有子菜单生成子菜单-->
-          <el-submenu v-if="menu.children.length>0" :index="'menu.id'" background-color="#fff">
+          <el-submenu v-if="menu.children.length>0" :index="menu.path" background-color="#fff">
               <template slot="title">
               <i :class="menu.icon"></i>
               <span>{{menu.title}}</span>
@@ -29,7 +29,7 @@
                   <!--判断是否有子菜单，无子菜单则直接生成菜单项-->
                   <el-menu-item v-if="menu2.children.length<1" :index="menu2.path">{{menu2.title}}</el-menu-item>
                   <!--判断是否有子菜单，有子菜单生成子菜单-->
-                  <el-submenu v-if="menu2.children.length>0" index="1-4">
+                  <el-submenu v-if="menu2.children.length>0" :index="menu2.id">
                        <template slot="title" >{{menu2.title}}</template>
                        <template v-for="menu3 in menu2.children">
                            <el-menu-item :index="menu3.path">{{menu3.title}}</el-menu-item>
