@@ -1,7 +1,8 @@
 <template>
-	<el-menu :collapse="collapsed"
-	  router
-	  unique-opened
+	
+   <el-menu :collapse="collapsed"
+    router
+    unique-opened
       default-active="2"
       @open="handleOpen"
       @close="handleClose"
@@ -10,52 +11,46 @@
       text-color="#b7bcc2"
       active-text-color="#fff"
       >
-      <el-menu-item index="dashboard">
-        <i class="el-icon-date"></i>
-        <span slot="title">Dashboard</span>
-        </el-menu-item>
-       <el-submenu index="1" background-color="#fff">
-        
-        <template slot="title">
-          <i class="el-icon-location"></i>
-          <span>组件</span>
-        </template>
 
+      <!--跟据菜单数据动态生成菜单，深度支持3级-->
+      <template v-for="menu in menus">
+          <!--判断是否有子菜单，无子菜单则直接生成菜单项-->
+          <el-menu-item v-if="menu.children.length<1" :index="menu.path">
+          <i :class="menu.icon"></i>
+          <span slot="title">{{menu.title}}</span>
+          </el-menu-item>
+          <!--判断是否有子菜单，有子菜单生成子菜单-->
+          <el-submenu v-if="menu.children.length>0" :index="'menu.id'" background-color="#fff">
+              <template slot="title">
+              <i :class="menu.icon"></i>
+              <span>{{menu.title}}</span>
+              </template>
+              <template v-for="menu2 in menu.children">
+                  <!--判断是否有子菜单，无子菜单则直接生成菜单项-->
+                  <el-menu-item v-if="menu2.children.length<1" :index="menu2.path">{{menu2.title}}</el-menu-item>
+                  <!--判断是否有子菜单，有子菜单生成子菜单-->
+                  <el-submenu v-if="menu2.children.length>0" index="1-4">
+                       <template slot="title" >{{menu2.title}}</template>
+                       <template v-for="menu3 in menu2.children">
+                           <el-menu-item :index="menu3.path">{{menu3.title}}</el-menu-item>
+                       </template>
+                  </el-submenu>
+              </template>
+          </el-submenu>
+      </template>
 
-          <el-menu-item index="form">表单</el-menu-item>
-          <el-menu-item index="table" >表格</el-menu-item>
-          <el-menu-item index="vuextest" >vuex测试</el-menu-item>
-          <el-menu-item index="slide" >跑马灯</el-menu-item>
-          <el-menu-item index="notify" >通知</el-menu-item>
-          <el-menu-item index="collapse" >折叠面板</el-menu-item>
-          <el-menu-item index="dialog" >对话框</el-menu-item>
-          <el-menu-item index="Upload" >文件上传</el-menu-item>
-          <el-menu-item index="test1" >测试1</el-menu-item>
-
-        <el-submenu index="1-4">
-          <template slot="title" >测试2</template>
-          <el-menu-item index="test2">测试2</el-menu-item>
-        </el-submenu>
-      </el-submenu>
-      <el-menu-item index="notfound">
-        <i class="el-icon-menu"></i>
-        <span slot="title">404页</span>
-      </el-menu-item>
-      <el-menu-item index="login">
-        <i class="el-icon-setting"></i>
-        <span slot="title">登录页</span>
-      </el-menu-item>
-    </el-menu>
-
+    </el-menu> 
 
 </template>
 
 
 <script>
+import {getMenus} from '../../service/api';
   export default {
   	name:'LeftMenu',
   	data(){
   		return{
+        menus:[]
   		}
   	},
   	props:['collapsed'],
@@ -65,7 +60,17 @@
       },
       handleClose(key, keyPath) {
         console.log(key, keyPath);
+      },
+      getMenus(){
+        let para={};
+        getMenus(para).then((res)=>{
+          this.menus=res.data.menus;
+        });
       }
+    },
+    mounted(){
+      console.log('ok');
+      this.getMenus();
     }
   }
 </script>

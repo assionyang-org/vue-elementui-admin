@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers, Users } from './data/user';
+import {Menus} from './data/menu';
 let _Users = Users;
 
 export default {
@@ -53,12 +54,22 @@ export default {
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            users: mockUsers
+            menus: mockUsers
           }]);
         }, 1000);
       });
     });
 
+    //获取菜单列表
+    mock.onGet('/system/menus').reply(config=>{
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            menus: Menus
+          }]);
+        }, 1000);
+      });
+    });
     //获取用户列表（分页）
     mock.onGet('/user/listpage').reply(config => {
       let {page, name} = config.params;
