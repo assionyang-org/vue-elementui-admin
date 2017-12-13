@@ -1,20 +1,19 @@
 <template>
-  <el-form :model="ruleForm2" :rules="rules2" ref="ruleForm2" label-position="left" label-width="0px" class="login-container">
-    <h3 class="title">电商管理系统</h3>
+  <el-form :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px" class="login-container">
+    <h3 class="title">Vue ElementUI Admin</h3>
     <el-alert style="margin-bottom:10px;"
     title="帐号admin或guest，密码123456，帐号权限不同!"
     type="success">
   </el-alert>
-    <el-form-item prop="account">
-      <el-input type="text" v-model="ruleForm2.account" auto-complete="off" placeholder="账号"></el-input>
+    <el-form-item prop="username">
+      <el-input type="text" v-model="loginForm.username" auto-complete="off" placeholder="账号" @keyup.enter.native="loginIn" :autofocus="true"></el-input>
     </el-form-item>
-    <el-form-item prop="checkPass">
-      <el-input type="password" v-model="ruleForm2.checkPass" auto-complete="off" placeholder="密码"></el-input>
+    <el-form-item prop="password">
+      <el-input type="password" v-model="loginForm.password" auto-complete="off" placeholder="密码" @keyup.enter.native="loginIn"></el-input>
     </el-form-item>
     <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
     <el-form-item style="width:100%;">
       <el-button type="primary" style="width:100%;" @click.native.prevent="loginIn" :loading="logining">登录</el-button>
-      <!--<el-button @click.native.prevent="handleReset2">重置</el-button>-->
     </el-form-item>
   </el-form>
 </template>
@@ -25,32 +24,30 @@ import {requestLogin} from '../service/api';
     data() {
       return {
         logining: false,
-        ruleForm2: {
-          account: '',
-          checkPass: ''
+        loginForm: {
+          username: '',
+          password: ''
         },
-        rules2: {
-          account: [
+        rules: {
+          username: [
             { required: true, message: '请输入账号', trigger: 'blur' },
-            //{ validator: validaePass }
           ],
-          checkPass: [
+          password: [
             { required: true, message: '请输入密码', trigger: 'blur' },
-            //{ validator: validaePass2 }
           ]
         },
         checked: false
       };
     },
     methods: {
-      handleReset2() {
-        this.$refs.ruleForm2.resetFields();
+      resetForm() {
+        this.$refs.loginForm.resetFields();
       },
       loginIn(ev) {
-        this.$refs.ruleForm2.validate((valid) => {
+        this.$refs.loginForm.validate((valid) => {
           if(valid){
             this.logining=true;
-            var loginParams={username:this.ruleForm2.account,password:this.ruleForm2.checkPass};
+            var loginParams={username:this.loginForm.username,password:this.loginForm.password};
             requestLogin(loginParams).then(data=>{
               this.logining=false;
               let {msg,code,user}=data;
@@ -74,7 +71,7 @@ import {requestLogin} from '../service/api';
 
 </script>
 
-<style lang="scss" scoped>
+<style>
   .login-container {
     /*box-shadow: 0 0px 8px 0 rgba(0, 0, 0, 0.06), 0 1px 0px 0 rgba(0, 0, 0, 0.02);*/
     -webkit-border-radius: 5px;

@@ -1,71 +1,75 @@
+<!--
+***系统主窗体布局***
+-->
 <template>
-<el-container v-loading="sysloading">
+  <el-container v-loading="sysloading">
+    <!--头部-->
   	<el-header class="header">
       <el-col :span="12">
-        <el-col :span="6" :class="collapsed?'logo-mini':'logo-long'">
+        <el-col :span="12" :class="collapsed?'logo-mini':'logo-long'">
           {{collapsed?logoMiniName:logoLongName}}
         </el-col>
-        <el-col :span="6">
-         
+        <el-col :span="12">
           <el-button style="margin-left:10px;" @click="collapse"><i :class="collapsed?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i></el-button>
         </el-col>
       </el-col>
-      
       <el-col :span="12">
         <el-col :span="24" style="text-align:right;"><UserInfo></UserInfo></el-col>
       </el-col>
   	</el-header>
 
+    <!--主体内容-->
     <el-container>
-    <transition name="el-zoom-in-center">
-     <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
-      <LeftMenu :collapsed="collapsed"></LeftMenu>
-     </el-aside>
-     </transition>
-     <el-main :class="collapsed?'main-mini':''">
+      <!--左侧-->
+      <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
+        <LeftMenu :collapsed="collapsed"></LeftMenu>
+      </el-aside>
+      <!--右侧-->
+      <el-main :class="collapsed?'main-mini':''">
         <el-col :span="24" style="background-color:#fff;height:71px;;">
-          <el-col :span="24" >
-            <el-breadcrumb separator="/" style="margin-left:20px;line-height:40px;">
-              <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
-                {{ item.name }}
-              </el-breadcrumb-item>
-           </el-breadcrumb>
-           <strong style="width:100px;color:#475669;margin-left:25px;line-height:31px;">{{$route.name}}</strong>
-          </el-col>
+          <!--面包屑-->
+          <Breadcrumb></Breadcrumb>
         </el-col>
         <el-col :span="24" style="background-color:#fff; border: 20px solid #f0f2f5; padding: 20px;">
-           <router-view></router-view>     
+          <!--主体内容路由视图-->
+          <router-view></router-view>     
         </el-col>
-        
-     </el-main>
+      </el-main>
     </el-container>
-</el-container>
+  </el-container>
 </template>
 
 <script>
+//引入菜单、面包屑、用户信息组件
 import LeftMenu from '@/views/components/LeftMenu'
 import UserInfo from '@/views/components/UserInfo'
+import Breadcrumb from '@/views/components/Breadcrumb'
 	export default{
 		name:'Main',
 		components:{
 			LeftMenu,
-      UserInfo
+      UserInfo,
+      Breadcrumb
 		},
 		data(){
 			return{
-				logoLongName:'Vue ElementUI Admin',
-				logoMiniName:'V',
-			  collapsed:false,
-        sysloading:true
+        //定义默认属性值
+				logoLongName:'Vue ElementUI Admin',//宽菜单LOGO文本
+				logoMiniName:'V',//窄菜单LOGO文本
+			  collapsed:false,//菜单折叠状态
+        sysloading:true//系统加载状态
 			}
 		},
 		methods: {
-			//折叠导航栏
+			//折叠导航栏，状态保存在sessionStorage中刷新保持状态
 			collapse:function(){
 				this.collapsed=!this.collapsed;
+        sessionStorage.setItem('collapsed',this.collapsed);
 			}
 		},
     mounted(){
+      this.collapsed=sessionStorage.getItem('collapsed')=="true";
+      //系统加载显示延迟一秒
       setTimeout(() => {
         this.sysloading=false;
       }, 1000);

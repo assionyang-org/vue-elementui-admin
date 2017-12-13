@@ -62,14 +62,13 @@ import {getMenus} from '../../service/api';
         console.log(key, keyPath);
       },
       getMenus(){
-        let para={};
-        getMenus(para).then((res)=>{
-          this.menus=res.data.menus;
-        });
+        let user=JSON.parse(sessionStorage.getItem('user'));
+        if(user){
+          this.menus=user.menus;
+        }
       }
     },
     mounted(){
-      console.log('ok');
       this.getMenus();
     }
   }
