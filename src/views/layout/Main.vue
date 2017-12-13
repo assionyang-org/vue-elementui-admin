@@ -112,6 +112,9 @@ import UserInfo from '@/views/components/UserInfo'
     border-right:1px solid #072140;
     text-align: center;
     background-color: #072140;
+    -webkit-box-shadow: 1px 1px 7px #333;
+    -moz-box-shadow: 1px 1px 7px #333;
+    -o-box-shadow: 1px 1px 7px #333;
   }
   .aside-long{
   	background-color:#031529;
@@ -134,6 +137,9 @@ import UserInfo from '@/views/components/UserInfo'
     top: 59px;
     z-index: 6;
     height: 100%;
+    -webkit-box-shadow: 1px 1px 7px #333;
+    -moz-box-shadow: 1px 1px 7px #333;
+    -o-box-shadow: 1px 1px 7px #333;
   }
   .el-main {
     margin-top: 60px;
