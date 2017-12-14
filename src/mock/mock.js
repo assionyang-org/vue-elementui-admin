@@ -1,6 +1,7 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers,LoginUsers2, Users } from './data/user';
+import {Departments} from './data/system';
 let _Users = Users;
 
 export default {
@@ -19,6 +20,9 @@ export default {
     mock.onGet('/error').reply(500, {
       msg: 'failure'
     });
+
+
+
 
     //登录
     mock.onPost('/login').reply(config => {
@@ -53,6 +57,50 @@ export default {
         }, 1000);
       });
     });
+
+    //获取部门列表
+    mock.onPost('/system/departments2').reply(config=>{
+      let mockDepartments={};
+      mockDepartments=depchilren(Departments[0],Departments);
+      return new Promise((resolve,reject)=>{
+        setTimeout(() => {
+          resolve([200, {
+            departments: mockDepartments
+          }]);
+        }, 1000);
+      });
+    });
+
+    //获取用户列表（分页）
+    mock.onGet('/system/departments').reply(config => {
+      let deps=depchilren(Departments,0,'无');
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            departments: deps
+          }]);
+        }, 1000);
+      });
+    });
+
+    function depchilren(data,pid,name){
+      var result=[],temp;
+      for(var i in data){
+        if(data[i].parent_sysno==pid){
+          data[i].label=data[i].departmentname;
+          data[i].id=data[i].sysno;
+          data[i].parent_departmentname=name;
+          result.push(data[i]);
+          temp=depchilren(data,data[i].sysno,data[i].departmentname);
+          if(temp.length>0){
+            data[i].children=temp;
+          }
+        }
+      }
+      return result;
+    }
+
 
     //获取用户列表
     mock.onGet('/user/list').reply(config => {
