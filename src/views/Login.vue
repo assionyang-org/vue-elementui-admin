@@ -1,6 +1,6 @@
 <template>
   <el-form :model="loginForm" :rules="rules" ref="loginForm" label-position="left" label-width="0px" class="login-container">
-    <h3 class="title">Vue ElementUI Admin</h3>
+    <h3 class="title text-center">Vue ElementUI Admin</h3>
     <el-alert style="margin-bottom:10px;"
     title="帐号admin或guest，密码123456，帐号权限不同!"
     type="success">
@@ -92,5 +92,8 @@ import {requestLogin} from '../service/api';
     .remember {
       margin: 0px 0px 35px 0px;
     }
+  }
+  .text-center {
+    text-align: center;
   }
 </style>
