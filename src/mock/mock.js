@@ -3,6 +3,7 @@ import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers,LoginUsers2, Users } from './data/user';
 import {Departments} from './data/system';
 let _Users = Users;
+let _Departments=Departments;
 
 export default {
   /**
@@ -58,23 +59,12 @@ export default {
       });
     });
 
-    //获取部门列表
-    mock.onPost('/system/departments2').reply(config=>{
-      let mockDepartments={};
-      mockDepartments=depchilren(Departments[0],Departments);
-      return new Promise((resolve,reject)=>{
-        setTimeout(() => {
-          resolve([200, {
-            departments: mockDepartments
-          }]);
-        }, 1000);
-      });
-    });
 
-    //获取用户列表（分页）
-    mock.onGet('/system/departments').reply(config => {
-      let deps=depchilren(Departments,0,'无');
+    //获取部门树形数据
+    mock.onGet('/system/department/list').reply(config => {
+      let deps=depchilren(_Departments,0,'无');
 
+      console.log(deps);
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -84,6 +74,7 @@ export default {
       });
     });
 
+    //生成部门数据树递归方法
     function depchilren(data,pid,name){
       var result=[],temp;
       for(var i in data){
@@ -100,7 +91,51 @@ export default {
       }
       return result;
     }
+    //新增部门
+    mock.onGet('/system/departments/add').reply(config => {
+      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = config.params;
+      _Departments.push({
+        sysno: sysno,
+        parent_sysno: parent_sysno,
+        departmentname: departmentname,
+        status: status,
+        isdel: isdel,
+        version:version,
+        created_at:created_at,
+        updated_at:updated_at
+      });
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '新增成功'
+          }]);
+        }, 500);
+      });
+    });
+    //删除部门
+    mock.onGet('/system/departments/remove').reply(config => {
+      let { sysno } = config.params;
+      let deps=[];
+      _Departments.forEach(function(d){
+        if(d.sysno!=sysno){
 
+          deps.push(d);
+        }
+      });
+      
+      _Departments = deps;
+      console.log(_Departments);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '删除成功'
+          }]);
+        }, 500);
+      });
+    });
+  
 
     //获取用户列表
     mock.onGet('/user/list').reply(config => {

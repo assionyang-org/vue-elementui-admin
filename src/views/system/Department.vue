@@ -1,8 +1,9 @@
 <template>
   <section>
-  	<el-row>
+  	<el-row style="heigth:300px;">
+
   		<el-col :span="4">
-        <el-tree
+        <el-tree 
               :data="departments"
               :props="defaultProps"
               node-key="id"
@@ -13,10 +14,29 @@
   		</el-col>
 
 
-  		<el-col :span="20" style="border-left:2px solid rgb(234,234,234);">
-  			<el-form ref="form" :model="form" label-width="80px">
+  		<el-col :span="20" style="border-left:2px solid rgb(234,234,234);padding-left:10px;">
+      <el-tabs type="card" v-model="activeName" @tab-click="tabClick">
+      <el-tab-pane  label="新增" name="first">
+          <el-form ref="form" :model="form" label-width="80px">
               <el-form-item label="上级部门">
-                <el-input v-model="form.parent_departmentname"></el-input>
+                <el-input v-model="form.parent_departmentname" :disabled="true"></el-input>
+              </el-form-item>
+              <el-form-item label="部门名称">
+                <el-input></el-input v-model="form.departmentname">
+              </el-form-item>
+              <el-form-item label="状态">
+                <el-switch v-model="form.status"></el-switch>
+              </el-form-item>
+              <el-form-item>
+                <el-button type="primary" @click="add" >新增</el-button>
+                <el-button @click="clearForm">重置</el-button>
+              </el-form-item>
+        </el-form>
+    </el-tab-pane>
+    <el-tab-pane label="修改删除" name="second">
+        <el-form ref="formmod" :model="form" label-width="80px">
+              <el-form-item label="上级部门">
+                <el-input v-model="form.parent_departmentname" :disabled="true"></el-input>
               </el-form-item>
               <el-form-item label="部门名称">
                 <el-input v-model="form.departmentname"></el-input>
@@ -25,24 +45,29 @@
                 <el-switch v-model="form.status"></el-switch>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" >保存</el-button>
-                <el-button type="danger">删除</el-button>
-                <el-button>重置</el-button>
+                <el-button type="warning">修改</el-button>
+                <el-button type="danger" @click="remove">删除</el-button>
+                <el-button @click="clearForm">重置</el-button>
               </el-form-item>
         </el-form>
+
+    </el-tab-pane>
+    </el-tabs>
+  			
   		</el-col>
   	</el-row>
   </section>
 </template>
 
 <script>
-import {getDepartmentList} from '../../service/system';
+import {getDepartmentList,removeDepartment,addDepartment} from '../../service/system';
 import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../service/api';
 	export default{
 		name:'Department',
 		 data() {
       return {
         departments:[],
+        activeName:'first',
       	form: {
           sysno: -1,
           parent_sysno:-1,
@@ -61,19 +86,93 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
       }
 	},
 	methods: {
+    clearForm(){
+      this.form.sysno=-1;
+      this.form.parent_sysno=-1;
+      this.form.parent_departmentname='';
+      this.form.departmentname='';
+      this.form.status=1;
+      this.form.isdel=false;
+      this.form.version=1;
+      this.form.created_at=Date(),
+      this.form.updated_at=Date(),
+      this.form.children=[]
+    },
     getDepartments(){
-      let para={};
+      let para={date:Date()};
       getDepartmentList(para).then((res)=>{
         this.departments=res.data.departments;
+        console.log(res.data.departments);
       });
+
+
     },
     treeClick(data){
+      this.form.sysno=data.sysno;
       this.form.departmentname=data.departmentname;
       this.form.status=data.status==1;
       this.form.parent_departmentname=data.parent_departmentname;
+      this.form.parent_sysno=data.parent_sysno;
+      this.form.children=data.children!=undefined?data.children:[];
+    },
+    tabClick(){
+      this.clearForm();
+    },
+    add(){
+      if(this.form.parent_sysno==-1){
+        this.$message.error('没有选择上级部门!');
+        return;
+      }
+      let para={sysno:this.form.sysno,parent_sysno:this.form.parent_sysno,departmentname:this.form.departmentname,status:this.form.status,isdel:this.form.isdel,
+        version:this.form.version,created_at:this.form.created_at,updated_at:this.form.updated_at}
+
+      addDepartment(para).then((res)=>{
+        if(res.data.code=='200'){
+          this.clearForm();
+            this.getDepartments();
+            this.$message({
+               message: '新增成功！',
+               type: 'success'
+            });
+        }
+      });
+    },
+    remove(){
+      if(this.form.sysno==-1){
+        this.$message.error('没有选择要删除的部门！');
+        return;
+      }
+
+      if(this.form.children.length>0){
+        this.$message.error('该部门有下级部门，请先删除下级部门!');
+        return;
+      }
+
+
+      this.$confirm('此操作将永久删除, 是否继续?', '提示', {
+          confirmButtonText: '确定',
+          cancelButtonText: '取消',
+          type: 'warning'
+        }).then(() => {
+
+          let para={sysno:this.form.sysno}
+          removeDepartment(para).then((res)=>{
+          if(res.data.code=='200'){
+
+            this.clearForm();
+            this.getDepartments();
+            this.$message({
+               message: '删除成功！',
+               type: 'success'
+            });
+           }
+          });
+        }).catch(() => {
+       
+        });
     }
   },
-    mounted(){
+  mounted(){
       this.getDepartments();
   }
 }
