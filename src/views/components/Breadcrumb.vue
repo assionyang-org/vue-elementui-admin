@@ -1,7 +1,7 @@
 <template>
 	<section>
 		
-		 <el-breadcrumb separator="/" style="margin-left:20px;line-height:40px;">
+		 <el-breadcrumb separator="/" style="margin-left:20px;line-height:40px;" separator-class="el-icon-arrow-right">
               <el-breadcrumb-item v-for="item in $route.matched" :key="item.path">
                 {{ item.name }}
               </el-breadcrumb-item>
