@@ -21,9 +21,11 @@
     <!--主体内容-->
     <el-container>
       <!--左侧-->
-      <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
-        <LeftMenu :collapsed="collapsed"></LeftMenu>
-      </el-aside>
+      <el-scrollbar>
+        <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
+          <LeftMenu :collapsed="collapsed"></LeftMenu>
+        </el-aside>
+      </el-scrollbar>
       <!--右侧-->
       <el-main :class="collapsed?'main-mini':''">
         <el-col :span="24" style="background-color:#fff;height:71px;;">
@@ -132,6 +134,7 @@ import Breadcrumb from '@/views/components/Breadcrumb'
     -webkit-box-shadow: 1px 1px 7px #333;
     -moz-box-shadow: 1px 1px 7px #333;
     -o-box-shadow: 1px 1px 7px #333;
+    overflow-y: auto;
   }
   .aside-mini{
   	background-color:#031529;
@@ -144,6 +147,7 @@ import Breadcrumb from '@/views/components/Breadcrumb'
     -webkit-box-shadow: 1px 1px 7px #333;
     -moz-box-shadow: 1px 1px 7px #333;
     -o-box-shadow: 1px 1px 7px #333;
+    overflow: inherit;
   }
   .el-main {
     margin-top: 60px;
@@ -159,9 +163,7 @@ import Breadcrumb from '@/views/components/Breadcrumb'
   .el-menu--collapse .el-submenu .el-menu {
     display: block;
   }
-  .el-aside, .el-main {
-    overflow: inherit;
-  }
+  
   .el-menu-item {
     -webkit-transition: 0s !important;
     transition: 0s !important;
