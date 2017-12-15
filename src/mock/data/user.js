@@ -71,54 +71,6 @@ const LoginUsers = [
             children:[]
           },
           {
-            id:3,
-            name:'Form',
-            path:'form',
-            icon:'',
-            title:'表单',
-            children:[]
-          },
-          {
-            id:4,
-            name:'Table',
-            path:'table',
-            icon:'',
-            title:'表格',
-            children:[]
-          },
-          {
-            id:5,
-            name:'Vuextest',
-            path:'vuextest',
-            icon:'',
-            title:'vuex测试',
-            children:[]
-          },
-          {
-            id:6,
-            name:'Slide',
-            path:'slide',
-            icon:'',
-            title:'跑马灯',
-            children:[]
-          },
-          {
-            id:7,
-            name:'Notify',
-            path:'notify',
-            icon:'',
-            title:'通知',
-            children:[]
-          },
-          {
-            id:8,
-            name:'Collapse',
-            path:'collapse',
-            icon:'',
-            title:'折叠面板',
-            children:[]
-          },
-          {
             id:9,
             name:'Dialog',
             path:'dialog',
@@ -132,6 +84,14 @@ const LoginUsers = [
             path:'upload',
             icon:'',
             title:'文件上传',
+            children:[]
+          },
+          {
+            id:111,
+            name:'Charts',
+            path:'charts',
+            icon:'',
+            title:'图表',
             children:[]
           },
           {

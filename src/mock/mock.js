@@ -135,6 +135,30 @@ export default {
         }, 500);
       });
     });
+     //修改部门
+    mock.onGet('/system/departments/edit').reply(config => {
+      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = config.params;
+      _Departments.some(d=>{
+        if(d.sysno===sysno){
+          d.departmentname=departmentname,
+          d.parent_sysno=parent_sysno,
+          d.status=status,
+          d.isdel=isdel,
+          d.version=version,
+          d.updated_at=updated_at
+        }
+      });
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '修改成功'
+          }]);
+        }, 500);
+      });
+    });
+
   
 
     //获取用户列表

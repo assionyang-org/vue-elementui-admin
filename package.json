@@ -17,9 +17,13 @@
     "axios": "^0.17.1",
     "axios-mock-adapter": "^1.10.0",
     "babel-runtime": "^6.26.0",
+    "echarts": "^3.8.5",
     "element-ui": "^2.0.7",
+    "jquery": "^3.2.1",
     "mockjs": "^1.0.1-beta3",
     "vue": "^2.5.2",
+    "vue-charts": "^0.2.1",
+    "vue-echarts": "^2.5.1",
     "vue-router": "^3.0.1",
     "vuex": "^3.0.1"
   },

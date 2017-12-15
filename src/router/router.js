@@ -5,12 +5,13 @@ import Login from '@/views/Login'
 export const loginRouter = {
     path: '/login',
     name: '登录',
+    meta:{isAuth:false},
     component: resolve => { require(['@/views/Login'], resolve); }
 };
 export const page404Router = {
     path: '*',
     name: '404',
-    icon:'',
+    meta:{isAuth:false},
     component: resolve => { require(['@/views/404'], resolve); }
 };
 
@@ -23,7 +24,7 @@ export const appRouter=[
     	children:[
         	{path:'/',redirect:{path:'/dashboard'}},
             {path:'/message',name:'消息显示页',component:resolve=>{require(['@/views/Message'],resolve);}},
-    	    {path:'/dashboard',name:'Dashboard',component:resolve=>{require(['@/views/test/Dashboard'],resolve);}},
+    	    {path:'/dashboard',name:'Dashboard',component:resolve=>{require(['@/views/Dashboard'],resolve);}},
     	    {path:'/vuextest',name:'Vuex测试页',component:resolve=>{require(['@/views/test/VuexTest'],resolve);}},
     	    {path:'/slide',name:'跑马灯',component:resolve=>{require(['@/views/test/Slide'],resolve);}},
     	    {path:'/dialog',name:'对话框',component:resolve=>{require(['@/views/test/Dialog'],resolve);}},
@@ -34,6 +35,7 @@ export const appRouter=[
     	    {path:'/test2',name:'测试2',component:resolve=>{require(['@/views/test/Test2'],resolve);}},
     	    {path:'/form',name:'表单',component:resolve=>{require(['@/views/test/Form'],resolve);}},
     	    {path:'/table',name:'表格',component:resolve=>{require(['@/views/test/Table'],resolve);}},
+            {path:'/charts',name:'图表',component:resolve=>{require(['@/views/test/Charts'],resolve);}},
     	    {path:'/department',name:'部门管理',component:resolve=>{require(['@/views/system/Department'],resolve);}},
     	    {path:'/employee',name:'员工管理',component:resolve=>{require(['@/views/system/Employee'],resolve);}},
     	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/User'],resolve);}},
