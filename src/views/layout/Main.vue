@@ -100,53 +100,36 @@ import Breadcrumb from '@/views/components/Breadcrumb'
   }
   
 
-  .logo-long{
+  .logo-long,
+  .logo-mini {
   	color:#fff;
     font-size:25px;
     width:260px;
-    border-right:1px solid #072140;
     text-align: center;
     background-color: #072140;
     -webkit-box-shadow: 1px 1px 7px #333;
     -moz-box-shadow: 1px 1px 7px #333;
     -o-box-shadow: 1px 1px 7px #333;
   }
-  .logo-mini{
-  	color:#fff;
-    font-size:25px;
+  .logo-mini  {
     width:65px;
-    border-right:1px solid #072140;
-    text-align: center;
-    background-color: #072140;
-    -webkit-box-shadow: 1px 1px 7px #333;
-    -moz-box-shadow: 1px 1px 7px #333;
-    -o-box-shadow: 1px 1px 7px #333;
   }
-  .aside-long{
+  .aside-long, .aside-mini{
   	background-color:#031529;
     width: 260px;
-    border-right: 1px solid #031529;
     position: fixed;
-    top: 59px;
+    top: 0;
     left: 0;
-    height: 100%;
+    margin-top: 59px;
+    height: calc(100% - 59px);
     z-index: 6;
     -webkit-box-shadow: 1px 1px 7px #333;
     -moz-box-shadow: 1px 1px 7px #333;
     -o-box-shadow: 1px 1px 7px #333;
     overflow-y: auto;
   }
-  .aside-mini{
-  	background-color:#031529;
+  .aside-mini {
     width: 65px;
-    position: fixed;
-    left: 0;
-    top: 59px;
-    z-index: 6;
-    height: 100%;
-    -webkit-box-shadow: 1px 1px 7px #333;
-    -moz-box-shadow: 1px 1px 7px #333;
-    -o-box-shadow: 1px 1px 7px #333;
     overflow: inherit;
   }
   .el-main {
@@ -158,7 +141,6 @@ import Breadcrumb from '@/views/components/Breadcrumb'
   .main-mini {
     margin-top: 60px;
     padding-left: 60px;
-
   }
   .el-menu--collapse .el-submenu .el-menu {
     display: block;
