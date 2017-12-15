@@ -1,9 +1,10 @@
 import axios from 'axios';
 import MockAdapter from 'axios-mock-adapter';
 import { LoginUsers,LoginUsers2, Users } from './data/user';
-import {Departments} from './data/system';
+import {Departments,Employees} from './data/system';
 let _Users = Users;
 let _Departments=Departments;
+let _Employees=Employees;
 
 export default {
   /**
@@ -159,7 +160,24 @@ export default {
       });
     });
 
-  
+    //获取员工列表（分页）
+    mock.onGet('/system/employee/list').reply(config=>{
+      let {page,employeename}=config.params;
+      let mockEmployees=_Employees.filter(employee=>{
+        if(employeename && employee.employeename.indexOf(employeename)==-1) return false;
+        return true;
+      });
+      let total=mockEmployees.length;
+      mockEmployees=mockEmployees.filter((e,index)=>index<20*page && index >=20 * (page-1));
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            total: total,
+            employees: mockEmployees
+          }]);
+        }, 1000);
+      });
+    });
 
     //获取用户列表
     mock.onGet('/user/list').reply(config => {

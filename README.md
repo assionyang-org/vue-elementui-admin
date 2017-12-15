@@ -1,15 +1,9 @@
+# 基于vue+elementui的中后台管理脚手架
 
+演示地址：<http://vue.chinayie.net>
 
-#### 基于vue+element-ui的中后台脚手架
+![](http://pic.chinayie.com/cdn/p0.png)
 
+![](http://pic.chinayie.com/cdn/p1.png)
 
-
-#### install dependencies
-
-    npm install
-    npm install vuex
-    npm install element-ui
-    npm install mockjs --save-dev
-    npm install axios --save
-    npm install axios-mock-adapter --save-dev
-
+![](http://pic.chinayie.com/cdn/p2.png)

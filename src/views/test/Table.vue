@@ -9,12 +9,14 @@
 			<el-form-item>
 				<el-button type="primary" >查询</el-button>
 			</el-form-item>
-			<el-form-item>
-				<el-button type="primary" >新增</el-button>
-			</el-form-item>
 		</el-form>
     </el-col>
- 
+    <el-col :span="24">
+        <el-button type="primary" >新增</el-button>
+    </el-col>
+    <el-col :span="24">
+        <el-alert title="消息提示的文案" type="info" show-icon style="margin-top:10px;"></el-alert>
+    </el-col>
 	<el-col :span="24">
     <el-table :data="users" v-loading="listLoading" style="width: 100%;">
 			<el-table-column type="selection" width="55">
@@ -76,7 +78,6 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
 			}
 		},
 		mounted(){
-			console.log('ok');
 			this.getUsers();
 		}
 	}

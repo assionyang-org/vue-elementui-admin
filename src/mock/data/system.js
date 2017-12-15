@@ -43,5 +43,27 @@ const Departments=[
     }
 ];
 
-export {Departments};
+const Employees = [];
+
+for (let i = 0; i < 123; i++) {
+    Employees.push(Mock.mock({
+    sysno: Mock.Random.guid(),
+    department_sysno:1,
+    departmentname:'IT中心',
+    employeeno:'E00000001',
+    photo: 'http://pic.chinayie.com/cdn/headphoto.png',
+    employeename: Mock.Random.cname(),
+    'employeeage|18-60': 18,
+    employeesex: Mock.Random.integer(0, 1),
+    hiredate: Mock.Random.date(),
+    jobtitle:'当上CEO',
+    status:1,
+    isdel:false,
+    version:Mock.Random.guid(),
+    created_at:Mock.Random.date(),
+    updated_at:Mock.Random.date()
+  }));
+}
+
+export {Departments,Employees};
 
