@@ -80,7 +80,6 @@ import Breadcrumb from '@/views/components/Breadcrumb'
 </script>
 
 <style scoped>
-  
   .header {
     padding-left: 0px;
     background-color: #ffffff;
@@ -98,8 +97,6 @@ import Breadcrumb from '@/views/components/Breadcrumb'
     -moz-box-shadow: 1px 1px 5px #ccc;
     -o-box-shadow: 1px 1px 5px #ccc;
   }
-  
-
   .logo-long,
   .logo-mini {
   	color:#fff;
@@ -145,7 +142,6 @@ import Breadcrumb from '@/views/components/Breadcrumb'
   .el-menu--collapse .el-submenu .el-menu {
     display: block;
   }
-  
   .el-menu-item {
     -webkit-transition: 0s !important;
     transition: 0s !important;
