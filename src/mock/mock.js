@@ -24,8 +24,6 @@ export default {
     });
 
 
-
-
     //登录
     mock.onPost('/login').reply(config => {
       let {username, password} = JSON.parse(config.data);
@@ -93,8 +91,8 @@ export default {
       return result;
     }
     //新增部门
-    mock.onGet('/system/departments/add').reply(config => {
-      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = config.params;
+    mock.onPost('/system/departments/add').reply(config => {
+      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = JSON.parse(config.data);
       _Departments.push({
         sysno: sysno,
         parent_sysno: parent_sysno,
@@ -126,7 +124,7 @@ export default {
       });
       
       _Departments = deps;
-      console.log(_Departments);
+
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -137,8 +135,8 @@ export default {
       });
     });
      //修改部门
-    mock.onGet('/system/departments/edit').reply(config => {
-      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = config.params;
+    mock.onPost('/system/departments/edit').reply(config => {
+      let { sysno, parent_sysno, departmentname, status, isdel,version,created_at,updated_at } = JSON.parse(config.data);
       _Departments.some(d=>{
         if(d.sysno===sysno){
           d.departmentname=departmentname,
@@ -162,13 +160,13 @@ export default {
 
     //获取员工列表（分页）
     mock.onGet('/system/employee/list').reply(config=>{
-      let {page,employeename}=config.params;
+      let {page,pageSize,employeename}=config.params;
       let mockEmployees=_Employees.filter(employee=>{
         if(employeename && employee.employeename.indexOf(employeename)==-1) return false;
         return true;
       });
       let total=mockEmployees.length;
-      mockEmployees=mockEmployees.filter((e,index)=>index<20*page && index >=20 * (page-1));
+      mockEmployees=mockEmployees.filter((e,index)=>index<pageSize*page && index >=pageSize * (page-1));
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -179,21 +177,128 @@ export default {
       });
     });
 
-    //获取用户列表
-    mock.onGet('/user/list').reply(config => {
-      let {name} = config.params;
-      let mockUsers = _Users.filter(user => {
-        if (name && user.name.indexOf(name) == -1) return false;
-        return true;
+    //新增员工
+    mock.onPost('/system/employee/add').reply(config=>{
+      let {sysno,department_sysno,departmentname,employeeno,employeephoto,employeename,employeeage,employeesex,employeehiredate,employeejobtitle,
+          status,isdel,version,created_at,updated_at}=JSON.parse(config.data);
+      _Employees.push({
+        sysno:sysno,
+        department_sysno:department_sysno,
+        employeeno:employeeno,
+        employeephoto:employeephoto,
+        employeename:employeename,
+        employeeage:employeeage,
+        employeesex:employeesex,
+        employeehiredate:employeehiredate,
+        employeejobtitle:employeejobtitle,
+        status:status,
+        isdel:isdel,
+        version:version,
+        created_at:created_at,
+        updated_at:updated_at
       });
+
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
-            menus: mockUsers
+            code: 200,
+            msg: '新增成功'
           }]);
-        }, 1000);
+        }, 500);
       });
     });
+
+    //删除员工
+    mock.onGet('/system/employee/remove').reply(config=>{
+      let {sysno}=config.params;
+      _Employees=_Employees.filter(e=>e.sysno!==sysno);
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '删除成功'
+          }]);
+        }, 500);
+      });
+    });
+
+    //批量删除员工
+    mock.onGet('/system/employee/batchremove').reply(config=>{
+      let {sysnos} = config.params;
+      console.log(sysnos);
+      sysnos=sysnos.split(',');
+      console.log(sysnos[0]);
+      let mockEmployees=[];
+      _Employees.forEach(function(e){
+         let isadd=true;
+         sysnos.forEach(function(s){
+           if(s===e.sysno){
+            isadd=false;
+           }
+         });
+         if(isadd){
+           mockEmployees.push(e);
+         }
+      });
+      _Employees=mockEmployees;
+      //_Employees=_Employees.filter(e=>!sysnos.includes(e.sysno));
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '删除成功'
+          }]);
+        }, 500);
+      });
+    });
+
+    //修改员工
+    mock.onPost('/system/employee/edit').reply(config=>{
+      let {sysno,department_sysno,departmentname,employeeno,employeephoto,employeename,employeeage,employeesex,employeehiredate,employeejobtitle,
+          status,isdel,version,created_at,updated_at}=JSON.parse(config.data);
+      _Employees.push({
+        sysno:sysno,
+        department_sysno:department_sysno,
+        employeeno:employeeno,
+        employeephoto:employeephoto,
+        employeename:employeename,
+        employeeage:employeeage,
+        employeesex:employeesex,
+        employeehiredate:employeehiredate,
+        employeejobtitle:employeejobtitle,
+        status:status,
+        isdel:isdel,
+        version:version,
+        created_at:created_at,
+        updated_at:updated_at
+      });
+      _Employees.some(e=>{
+        if(e.sysno===sysno){
+          e.department_sysno=department_sysno,
+          e.employeeno=employeeno,
+          e.employeephoto=employeephoto,
+          e.employeename=employeename,
+          e.employeeage=employeeage,
+          e.employeesex=employeesex,
+          e.employeehiredate=employeehiredate,
+          e.employeejobtitle=employeejobtitle,
+          e.status=status,
+          e.isdel=isdel,
+          e.version=version,
+          e.updated_at=updated_at
+        }
+      });
+
+      return new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve([200, {
+            code: 200,
+            msg: '编辑成功'
+          }]);
+        }, 500);
+      });
+    });
+
 
     //获取用户列表（分页）
     mock.onGet('/user/listpage').reply(config => {
@@ -213,78 +318,5 @@ export default {
         }, 1000);
       });
     });
-
-    //删除用户
-    mock.onGet('/user/remove').reply(config => {
-      let { id } = config.params;
-      _Users = _Users.filter(u => u.id !== id);
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: '删除成功'
-          }]);
-        }, 500);
-      });
-    });
-
-    //批量删除用户
-    mock.onGet('/user/batchremove').reply(config => {
-      let { ids } = config.params;
-      ids = ids.split(',');
-      _Users = _Users.filter(u => !ids.includes(u.id));
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: '删除成功'
-          }]);
-        }, 500);
-      });
-    });
-
-    //编辑用户
-    mock.onGet('/user/edit').reply(config => {
-      let { id, name, addr, age, birth, sex } = config.params;
-      _Users.some(u => {
-        if (u.id === id) {
-          u.name = name;
-          u.addr = addr;
-          u.age = age;
-          u.birth = birth;
-          u.sex = sex;
-          return true;
-        }
-      });
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: '编辑成功'
-          }]);
-        }, 500);
-      });
-    });
-
-    //新增用户
-    mock.onGet('/user/add').reply(config => {
-      let { name, addr, age, birth, sex } = config.params;
-      _Users.push({
-        name: name,
-        addr: addr,
-        age: age,
-        birth: birth,
-        sex: sex
-      });
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve([200, {
-            code: 200,
-            msg: '新增成功'
-          }]);
-        }, 500);
-      });
-    });
-
   }
 };

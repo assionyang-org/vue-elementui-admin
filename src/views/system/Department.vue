@@ -158,15 +158,16 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
       this.$refs.addForm.validate((valid) => {
           if(valid){
             let para={sysno:this.addform.sysno,parent_sysno:this.addform.parent_sysno,departmentname:this.addform.departmentname,status:this.addform.status,isdel:this.addform.isdel,version:this.addform.version,created_at:this.addform.created_at,updated_at:this.addform.updated_at};
-            addDepartment(para).then((res)=>{
-                if(res.data.code=='200'){
+            addDepartment(para).then((data)=>{
+                let {code}=data;
+                if(code=='200'){
                   this.clearForm();
                   this.getDepartments();
                   this.$message({
                   message: '新增成功！',
                   type: 'success'
                   });
-              }
+                }
             });
 
           }
@@ -177,15 +178,16 @@ import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from 
           if(valid){
               let para={sysno:this.form.sysno,parent_sysno:this.form.parent_sysno,departmentname:this.form.departmentname,status:this.form.status,isdel:this.form.isdel,
                 version:this.form.version,created_at:this.form.created_at,updated_at:this.form.updated_at};
-              editDepartment(para).then((res)=>{
-                if(res.data.code=='200'){
+              editDepartment(para).then((data)=>{
+                let {code}=data;
+                if(code=='200'){
                   this.clearForm();
                   this.getDepartments();
                   this.$message({
-                  message: '修改成功！',
+                  message: '修改成功',
                   type: 'success'
                   });
-              }
+                }
               });
           }
       });
