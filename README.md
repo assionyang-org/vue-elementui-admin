@@ -1,19 +1,15 @@
 # 基于vue+elementui的中后台脚手架
 
 
-**使用**
-
-#clone项目
+# clone项目
 > git clone https://github.com/assionyang-org/vue-elementui-admin.git
 
-#进入项目目录安装
+# 进入项目目录安装
 > npm install //安装依赖  <br/>
 > npm run dev //运行 <br/>
 > npm run build //编译 <br/>
 
-**项目结构**
-
-#项目依赖
+# 项目依赖
 > vue,vuex,vueroter,elementui,axios,mockjs,axios-mock-adapter,echarts,e2e等
 
 # 目录结构
@@ -36,7 +32,7 @@
 * static - 静态资源
 * test - 单元测试目录
 
-**演示**
+# 演示
 
 演示地址：<http://vue.chinayie.net>
 
