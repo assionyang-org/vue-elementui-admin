@@ -105,7 +105,7 @@
 </template>
 <script>
 import {getEmployeeList,addEmployee,removeEmployee,batchremoveEmployee,editEmployee} from '../../service/system';
-import util from '../../utils/util';
+import util from '../../common/util';
 	export default{
 		name:'Employee',
 		data(){
