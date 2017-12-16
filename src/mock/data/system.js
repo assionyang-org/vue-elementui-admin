@@ -57,7 +57,7 @@ for (let i = 0; i < 123; i++) {
     employeesex: Mock.Random.integer(0, 1),
     employeehiredate: Mock.Random.date(),
     employeejobtitle:'当上CEO',
-    status:1,
+    'status|0-1':1,
     isdel:false,
     version:Mock.Random.guid(),
     created_at:Mock.Random.date(),

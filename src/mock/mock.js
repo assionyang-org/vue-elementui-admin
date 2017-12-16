@@ -160,13 +160,17 @@ export default {
 
     //获取员工列表（分页）
     mock.onGet('/system/employee/list').reply(config=>{
-      let {page,pageSize,employeename}=config.params;
+      let {currentPage,pageSize,employeename,employeesex,created_at,status}=config.params;
+      console.log(employeesex);
       let mockEmployees=_Employees.filter(employee=>{
-        if(employeename && employee.employeename.indexOf(employeename)==-1) return false;
+        if(employeename && employee.employeename.indexOf(employeename)===-1) return false;
+        if(employeesex!==-1 && employeesex!=='' && employee.employeesex!==employeesex) return false;
+        if(status!==-1 && status!=='' && employee.status!==status) return false;
+        if(created_at!==null && (created_at[0]>=employee.created_at || created_at[1]<=employee.created_at)) return false;
         return true;
       });
       let total=mockEmployees.length;
-      mockEmployees=mockEmployees.filter((e,index)=>index<pageSize*page && index >=pageSize * (page-1));
+      mockEmployees=mockEmployees.filter((e,index)=>index<pageSize*currentPage && index >=pageSize * (currentPage-1));
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {

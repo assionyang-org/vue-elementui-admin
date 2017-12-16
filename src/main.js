@@ -10,6 +10,7 @@ import 'element-ui/lib/theme-chalk/index.css'
 import ECharts from 'vue-echarts/components/ECharts';
 import Mock from './mock'
 
+let EmployeeHub=new Vue();
 Vue.use(Vuex)
 Vue.use(ElementUI)
 Vue.use(ECharts)
