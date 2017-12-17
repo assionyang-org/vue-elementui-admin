@@ -97,7 +97,7 @@
                 <el-button size="small" type="primary" @click="addFormShow">新增</el-button>
                 <el-button size="small" type="primary" @click="editFormShow" :disabled="$store.state.EmployeeStore.selects.length===0">编辑</el-button>
                 <el-button size="small" type="danger" @click="remove" :disabled="$store.state.EmployeeStore.selects.length===0">删除</el-button>
-                <el-button size="small" type="info">导出Excel</el-button>
+                <el-button size="small" type="info" @click="exportExcel" :loading="excelExportLoding" :disabled="$store.state.EmployeeStore.selects.length===0">导出Excel</el-button>
             </el-button-group>
         </el-col>
         <!--默认提示信息部分-->
@@ -109,15 +109,18 @@
 
 <script>
 import {batchremoveEmployee,addEmployee,editEmployee,getDepartmentList} from '@/service/system';
+
+
 import util from '@/common/util';
 import store from '@/store'
+
 	export default{
 		name:'EmployeeForm',
 		//默认数据state
 		data(){
 			return{
-				title:'可以对员工进行增删改查的管理！',
-				sels:[],
+				title:'这是默认提示信息这是默认提示信息这是默认提示信息这是默认提示信息这是默认提示信息',
+				excelExportLoding:false,
 				addFormVisible: false,//新增界面是否显示
 				addLoading: false,
 				addFormRules: {
@@ -175,6 +178,21 @@ import store from '@/store'
 			this.getDepartments();
 		},
 		methods:{
+			exportExcel(){
+				this.excelExportLoding=true;
+				require.ensure([],()=>{
+					const {export_json_to_excel} = require('@/common/Export2Excel');
+					const tHeader=['员工姓名','所属部门','创建时间'];
+					const filterVal=['employeename','departmentname','created_at'];
+					const list=this.$store.state.EmployeeStore.selects;
+					const data=this.formatJson(filterVal,list);
+					export_json_to_excel(tHeader,data,'员工表');
+					this.excelExportLoding=false;
+				})
+			},
+			formatJson(filterVal,jsonData){
+				return jsonData.map(v=>filterVal.map(j=>v[j]));
+			},
 			getDepartments(){
                let para={};
                getDepartmentList(para).then((res)=>{
