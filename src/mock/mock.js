@@ -62,8 +62,6 @@ export default {
     //获取部门树形数据
     mock.onGet('/system/department/list').reply(config => {
       let deps=depchilren(_Departments,0,'无');
-
-      console.log(deps);
       return new Promise((resolve, reject) => {
         setTimeout(() => {
           resolve([200, {
@@ -161,7 +159,6 @@ export default {
     //获取员工列表（分页）
     mock.onGet('/system/employee/list').reply(config=>{
       let {currentPage,pageSize,employeename,employeesex,created_at,status}=config.params;
-      console.log(employeesex);
       let mockEmployees=_Employees.filter(employee=>{
         if(employeename && employee.employeename.indexOf(employeename)===-1) return false;
         if(employeesex!==-1 && employeesex!=='' && employee.employeesex!==employeesex) return false;
@@ -185,6 +182,8 @@ export default {
     mock.onPost('/system/employee/add').reply(config=>{
       let {sysno,department_sysno,departmentname,employeeno,employeephoto,employeename,employeeage,employeesex,employeehiredate,employeejobtitle,
           status,isdel,version,created_at,updated_at}=JSON.parse(config.data);
+
+          console.log(employeehiredate);
       _Employees.push({
         sysno:sysno,
         department_sysno:department_sysno,
@@ -201,6 +200,8 @@ export default {
         created_at:created_at,
         updated_at:updated_at
       });
+
+
 
       return new Promise((resolve, reject) => {
         setTimeout(() => {
@@ -229,14 +230,12 @@ export default {
     //批量删除员工
     mock.onGet('/system/employee/batchremove').reply(config=>{
       let {sysnos} = config.params;
-      console.log(sysnos);
       sysnos=sysnos.split(',');
-      console.log(sysnos[0]);
       let mockEmployees=[];
       _Employees.forEach(function(e){
          let isadd=true;
          sysnos.forEach(function(s){
-           if(s===e.sysno){
+           if(s==e.sysno){
             isadd=false;
            }
          });

@@ -2,18 +2,18 @@
 	<section>
 		<!--查询过滤条件部分-->
 		<el-col :span="24" class="toolbar" style="padding-top:10px;">
-		    <el-form :inline="true" :model="filters" ref="filtersForm">
+		    <el-form :inline="true" :model="$store.getters.filters" ref="filtersForm">
 			    <el-form-item label="员工姓名">
-				    <el-input v-model="filters.employeename"  placeholder="姓名"></el-input>
+				    <el-input v-model="$store.getters.filters.employeename"  placeholder="姓名"></el-input>
 			    </el-form-item>
 			    <el-form-item label="性别">
-				    <el-select v-model="filters.employeesex" placeholder="请选择">
+				    <el-select v-model="$store.getters.filters.employeesex" placeholder="请选择">
 				        <el-option v-for="item in sexOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
 				    </el-select>
 			    </el-form-item>
 			    <el-form-item label="创建日期">
 	                <el-date-picker
-                    v-model="filters.created_at"
+                    v-model="$store.getters.filters.created_at"
                     type="daterange"
                     align="right"
                     unlink-panels
@@ -25,7 +25,7 @@
                     </el-date-picker>
 			    </el-form-item>
 			    <el-form-item label="状态">
-				    <el-select v-model="filters.status" placeholder="请选择">
+				    <el-select v-model="$store.getters.filters.status" placeholder="请选择">
 				        <el-option v-for="item in statusOptions" :key="item.value" :label="item.label" :value="item.value"></el-option>
 				    </el-select>
 			    </el-form-item>
@@ -42,6 +42,7 @@
 </template>
 <script>
 import {bus} from '@/common/EventBus';
+import store from '@/store'
 	export default{
 		name:'EmployeeFilters',
 		data(){
@@ -87,14 +88,15 @@ import {bus} from '@/common/EventBus';
 		},
 		methods:{
 			getEmployees(){
-				bus.$emit('setFilters',this.filters)
+				this.$store.commit('getEmployees');
 			},
 			resetFilters(){
+				this.$store.state.EmployeeStore.filters.employeename='';
+				this.$store.dispatch('getEmployees');
 				this.filters.employeename='';
 				this.filters.employeesex='';
 				this.filters.created_at='';
 				this.filters.status='';
-				bus.$emit('setFilters',this.filters)
 			}
 		}
 	}

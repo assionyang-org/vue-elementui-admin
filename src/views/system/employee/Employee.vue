@@ -15,6 +15,8 @@
 import EmployeeForm from '@/views/system/employee/components/Form';
 import EmployeeFilters from '@/views/system/employee/components/Filters';
 import EmployeeTable from '@/views/system/employee/components/Table';
+import store from '@/store'
+
 	export default{
 		name:'Employee',
 		//加载组件
@@ -22,6 +24,9 @@ import EmployeeTable from '@/views/system/employee/components/Table';
 			EmployeeFilters,
 			EmployeeForm,
 			EmployeeTable
+		},
+		mounted(){
+			this.$store.commit('getEmployees');
 		}
 	}
 </script>

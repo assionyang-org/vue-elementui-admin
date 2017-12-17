@@ -4,7 +4,7 @@ import Vue from 'vue'
 import App from './App'
 import {router} from './router'
 import Vuex from 'vuex'
-import store from './store/store'
+import store from './store'
 import ElementUI from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
 import ECharts from 'vue-echarts/components/ECharts';
