@@ -49,7 +49,7 @@
         <el-col :span="24">
             <el-button-group>
                 <el-button size="small" type="primary" @click="formShow('add')">新增</el-button>
-                <el-button size="small" type="primary" @click="formShow('edit')" :disabled="selects.length===0">编辑</el-button>
+                <el-button size="small" type="primary" @click="formShow('edit')" :disabled="selects.length!==1">编辑</el-button>
                 <el-button size="small" type="danger" @click="remove" :disabled="selects.length===0">删除</el-button>
                 <el-button size="small" type="info" @click="exportExcel" :loading="excelExportLoding" :disabled="selects.length===0">导出Excel</el-button>
             </el-button-group>
@@ -75,7 +75,7 @@ const {mapGetters,mapActions}=createNamespacedHelpers('system/employee');
 		//默认数据state
 		data(){
 			return{
-				title:'这是默认提示信息这是默认提示信息这是默认提示信息这是默认提示信息这是默认提示信息',
+				title:'编辑同时只能选择一条数据进行编辑，删除可以选择多条批量删除，导出Excel是概据选择的数据进行导出的。',
 				formTitle:'',
 				//Excel导出loding状态
 				excelExportLoding:false,
