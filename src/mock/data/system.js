@@ -1,4 +1,175 @@
 import Mock from 'mockjs'
+const LoginUsers = [
+  {
+    id: 1,
+    username: 'admin',
+    password: '123456',
+    avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+    name: '杨春来',
+    menus:[
+                           {
+      id:1,
+      name:'Dashboard',
+      path:'dashboard',
+      icon:'el-icon-date',
+      title:'Dashboard',
+      children:[]
+  },
+  {
+      id:3,
+      name:'Notfound',
+      path:'notfound',
+      icon:'el-icon-menu',
+      title:'404页',
+      children:[]
+  },
+  {
+      id:4,
+      name:'Login',
+      path:'login',
+      icon:'el-icon-circle-check',
+      title:'登录页',
+      children:[]
+  },
+  {
+      id:5,
+      name:'System',
+      path:'system',
+      icon:'el-icon-setting',
+      title:'系统管理',
+      children:[
+          {
+            id:6,
+            name:'Department',
+            path:'department',
+            icon:'',
+            title:'部门管理',
+            children:[]
+          },
+          {
+            id:7,
+            name:'Employee',
+            path:'employee',
+            icon:'',
+            title:'员工管理',
+            children:[]
+          },
+          {
+            id:8,
+            name:'User',
+            path:'user',
+            icon:'',
+            title:'帐号管理',
+            children:[]
+          },
+          {
+            id:9,
+            name:'RoleAuth',
+            path:'',
+            icon:'',
+            title:'权限管理',
+            children:[
+               {
+                 id:10,
+                 name:'Role',
+                 path:'role',
+                 icon:'',
+                 title:'角色',
+                 children:[]
+               },
+               {
+                 id:11,
+                 name:'Auth',
+                 path:'auth',
+                 icon:'',
+                 title:'权限',
+                 children:[]
+               }
+            ]
+          }
+      ]
+      }
+    ]
+  }
+]
+
+const LoginUsers2 = [
+  {
+    id: 1,
+    username: 'guest',
+    password: '123456',
+    avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
+    name: '杨春来2',
+    menus:[
+       {
+          id:1,
+          name:'Dashboard',
+          path:'dashboard',
+          icon:'el-icon-date',
+          title:'Dashboard',
+          children:[]
+       },
+       {
+      id:5,
+      name:'System',
+      path:'system',
+      icon:'el-icon-setting',
+      title:'系统管理',
+      children:[
+          {
+            id:6,
+            name:'Department',
+            path:'department',
+            icon:'',
+            title:'部门管理',
+            children:[]
+          },
+          {
+            id:7,
+            name:'Employee',
+            path:'employee',
+            icon:'',
+            title:'员工管理',
+            children:[]
+          },
+          {
+            id:8,
+            name:'User',
+            path:'user',
+            icon:'',
+            title:'帐号管理',
+            children:[]
+          },
+          {
+            id:9,
+            name:'RoleAuth',
+            path:'',
+            icon:'',
+            title:'权限管理',
+            children:[
+               {
+                 id:10,
+                 name:'Role',
+                 path:'role',
+                 icon:'',
+                 title:'角色',
+                 children:[]
+               },
+               {
+                 id:11,
+                 name:'Auth',
+                 path:'auth',
+                 icon:'',
+                 title:'权限',
+                 children:[]
+               }
+            ]
+          }
+      ]
+      }
+    ]
+  }
+ ]
 
 const Departments=[
     {
@@ -65,5 +236,23 @@ for (let i = 0; i < 123; i++) {
   }));
 }
 
-export {Departments,Employees};
+const Users=[];
+
+for(let i=0;i<50;i++){
+    Users.push(Mock.mock({
+        sysno:i+1,
+        employee_sysno:1,
+        employeename:Mock.Random.cname(),
+        username:'username',
+        password:'password',
+        lastlogintime:Mock.Random.date(),
+        'status|0-1':1,
+        isdel:false,
+        version:Mock.Random.guid(),
+        created_at:Mock.Random.date(),
+        updated_at:Mock.Random.date()
+    }));
+}
+
+export {Departments,Employees,Users,LoginUsers,LoginUsers2};
 

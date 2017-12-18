@@ -25,3 +25,5 @@ export const removeEmployee = params => { return axios.get(`${base}/system/emplo
 export const batchremoveEmployee = params => { return axios.get(`${base}/system/employee/batchremove`, { params: params }); };
 //修改员工
 export const editEmployee = params => { return axios.post(`${base}/system/employee/edit`,params).then(res=>res.data); };
+//获取用户列表（分页）
+export const getUserList = params => { return axios.get(`${base}/system/user/list`, { params: params }); };

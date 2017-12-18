@@ -28,7 +28,7 @@ export const appRouter=[
             {path:'/config',name:'配置',component:resolve=>{require(['@/views/system/Config'],resolve);},meta:{isLogin:true,isAuth:false}},
     	    {path:'/department',name:'部门管理',component:resolve=>{require(['@/views/system/Department'],resolve);}},
     	    {path:'/employee',name:'员工管理',component:resolve=>{require(['@/views/system/employee/Container'],resolve);},meta:{isLogin:true,isAuth:true}},
-    	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/User'],resolve);},meta:{isLogin:true,isAuth:true}},
+    	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/user/Container'],resolve);},meta:{isLogin:true,isAuth:true}},
     	    {path:'/role',name:'角色管理',component:resolve=>{require(['@/views/system/Role'],resolve);},meta:{isLogin:true,isAuth:true}},
     	    {path:'/auth',name:'权限管理',component:resolve=>{require(['@/views/system/Auth'],resolve);},meta:{isLogin:true,isAuth:true}},
     	]
