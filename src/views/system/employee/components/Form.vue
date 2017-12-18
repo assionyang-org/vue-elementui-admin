@@ -181,6 +181,11 @@ const {mapGetters,mapActions}=createNamespacedHelpers('system/employee');
 						updated_at:Date()
 				    }
 				}else if(show=='edit'){
+					if(this.selects.length>1){
+						 this.$message.error('只能选择一条进行编辑！');
+						 this.formVisible=false;
+						 return;
+					}
 					//修改
 					this.formAdd=false;
 					this.formTitle='修改员工';
@@ -241,8 +246,8 @@ const {mapGetters,mapActions}=createNamespacedHelpers('system/employee');
 			},
 			//删除
 			remove(){
-				let sysnos=this.$store.state.EmployeeStore.selects.map(item=>item.sysno).toString();
-				this.$confirm('确认删除选中的 ['+this.$store.state.EmployeeStore.selects.length+'] 条记录吗?', '提示', {
+				let sysnos=this.selects.map(item=>item.sysno).toString();
+				this.$confirm('确认删除选中的 ['+this.selects.length+'] 条记录吗?', '提示', {
 					type: 'warning'
 				}).then(() => {
 					this.listLoading(true);

@@ -131,7 +131,6 @@ import {getDepartmentList,removeDepartment,addDepartment,editDepartment} from '@
       let para={date:Date()};
       getDepartmentList(para).then((res)=>{
         this.departments=res.data.departments;
-        console.log(res.data.departments);
       });
 
 
