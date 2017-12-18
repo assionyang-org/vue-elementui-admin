@@ -16,15 +16,6 @@ const LoginUsers = [
       children:[]
   },
   {
-      id:2,
-      name:'Vuextest',
-      path:'vuextest',
-      icon:'el-icon-location',
-      title:'Vuex测试',
-      children:[
-      ]
-  },
-  {
       id:3,
       name:'Notfound',
       path:'notfound',

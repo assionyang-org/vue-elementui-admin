@@ -6,13 +6,13 @@ export const loginRouter = {
     path: '/login',
     name: '登录',
     component: resolve => { require(['@/views/Login'], resolve); },
-    meta:{isAuth:false},
+    meta:{isLogin:false,isAuth:false},
 };
 export const page404Router = {
     path: '*',
     name: '404',
     component: resolve => { require(['@/views/404'], resolve); },
-    meta:{isAuth:false}
+    meta:{isLogin:false,isAuth:false}
 };
 
 //作为Main组件的子页面展示的页面
@@ -23,14 +23,14 @@ export const appRouter=[
     	component:Main,
     	children:[
         	{path:'/',redirect:{path:'/dashboard'}},
-            {path:'/message',name:'消息显示页',component:resolve=>{require(['@/views/Message'],resolve);},meta:{isAuth:true}},
-    	    {path:'/dashboard',name:'Dashboard',component:resolve=>{require(['@/views/Dashboard'],resolve);},meta:{isAuth:true}},
-    	    {path:'/vuextest',name:'Vuex测试页',component:resolve=>{require(['@/views/test/VuexTest'],resolve);},meta:{isAuth:true}},
+            {path:'/message',name:'消息显示页',component:resolve=>{require(['@/views/Message'],resolve);},meta:{isLogin:true,isAuth:true}},
+    	    {path:'/dashboard',name:'Dashboard',component:resolve=>{require(['@/views/Dashboard'],resolve);},meta:{isLogin:true,isAuth:true}},
+            {path:'/config',name:'配置',component:resolve=>{require(['@/views/system/Config'],resolve);},meta:{isLogin:true,isAuth:false}},
     	    {path:'/department',name:'部门管理',component:resolve=>{require(['@/views/system/Department'],resolve);}},
-    	    {path:'/employee',name:'员工管理',component:resolve=>{require(['@/views/system/employee/Employee'],resolve);},meta:{isAuth:true}},
-    	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/User'],resolve);},meta:{isAuth:true}},
-    	    {path:'/role',name:'角色管理',component:resolve=>{require(['@/views/system/Role'],resolve);},meta:{isAuth:true}},
-    	    {path:'/auth',name:'权限管理',component:resolve=>{require(['@/views/system/Auth'],resolve);},meta:{isAuth:true}},
+    	    {path:'/employee',name:'员工管理',component:resolve=>{require(['@/views/system/employee/Container'],resolve);},meta:{isLogin:true,isAuth:true}},
+    	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/User'],resolve);},meta:{isLogin:true,isAuth:true}},
+    	    {path:'/role',name:'角色管理',component:resolve=>{require(['@/views/system/Role'],resolve);},meta:{isLogin:true,isAuth:true}},
+    	    {path:'/auth',name:'权限管理',component:resolve=>{require(['@/views/system/Auth'],resolve);},meta:{isLogin:true,isAuth:true}},
     	]
     }
 ];

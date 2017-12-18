@@ -156,7 +156,7 @@
     </section>
 </template>
 <script>
-import {getDepartmentList,getEmployeeList,addEmployee,removeEmployee,batchremoveEmployee,editEmployee} from '../../service/system';
+import {getDepartmentList,getEmployeeList,addEmployee,removeEmployee,batchremoveEmployee,editEmployee} from '@/service/api';
 import util from '../../common/util';
 	export default{
 		name:'Employee',

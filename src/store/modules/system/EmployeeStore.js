@@ -1,14 +1,21 @@
 import Vue from 'vue';
 //导入数据操作API
-import {getEmployeeList} from '@/service/system';
+import {getEmployeeList} from '@/service/api';
 
+//状态
 const state={
-	employees:[], //员工列表state
-	total:0, //总记录数
-	currentPage:1, //当前页
-	pageSize:10, //每页显示记录数
-	listLoading:false, //加载状态
-	selects:[], //表格选择行数据
+	//员工列表state
+	employees:[], 
+	//表格选择行数据
+	selects:[],
+	//总记录数
+	total:0, 
+	//当前页
+	currentPage:1, 
+	//每页显示记录数
+	pageSize:10, 
+	//表格加载状态
+	listLoading:false, 
 	//过滤条件
 	filters:{
 		employeename:'',
@@ -18,23 +25,22 @@ const state={
 	}
 };
 
+//getter
 const getters={
 	employees:state=>state.employees,
+	selects:state=>state.selects,
+	total:state=>state.total,
+	currentPage:state=>state.currentPage,
+	pageSize:state=>state.pageSize,
+	listLoading:state=>state.listLoading,
 	filters:state=>state.filters
 };
 
+//action
 const actions={
+	//查询员工列表
 	getEmployees({commit,state}){
-		commit('getEmployees');
-	},
-	sizeChange({commit},pageSize){
-		commit('sizeChange',pageSize);
-	}
-};
-
-const mutations={
-	getEmployees(state){
-	    let param={
+		let param={
 			currentPage:state.currentPage,
 			pageSize:state.pageSize,
 			employeename:state.filters.employeename,
@@ -42,27 +48,70 @@ const mutations={
 			created_at:state.filters.created_at,
 			status:state.filters.status
 		};
-		state.listLoading=true;
+		commit('listLoading',true);
 		getEmployeeList(param).then((res)=>{
-			state.total=res.data.total;
-			state.employees=res.data.employees;
-			state.listLoading=false;
+			commit('loadList',res.data);
+			commit('listLoading',false);
 		});
 	},
-	selectsChange(state,selects){
-		state.selects=selects;
+	//表格选择行
+	selectsChange({commit,dispatch},selects){
+		commit('selectsChange',selects);
 	},
-	currentChange(state,currentPage){
-		state.currentPage=currentPage;
-		this.commit('getEmployees');
+	//表格翻页
+	currentChange({commit,dispatch},currentPage){
+		commit('currentChange',currentPage);
+		dispatch('getEmployees');
 	},
-	sizeChange(state,pageSize){
-		state.pageSize=pageSize;
-		this.commit('getEmployees');
+	//表格设置每页条数
+	sizeChange({commit,dispatch},pageSize){
+		commit('sizeChange',pageSize);
+		dispatch('getEmployees');
+	},
+	//重置过虑器
+	resetFilters({commit,dispatch},filters){
+		commit('resetFilters',filters);
+		dispatch('getEmployees');
+	},
+	//表格载入状态
+	listLoading({commit},isShow){
+		commit('listLoading',isShow);
 	}
 };
 
+//mutations
+const mutations={
+	//员工列表数据状态变更
+	loadList(state,param){
+		state.total=param.total;
+		state.employees=param.employees;
+	},
+	//表格载入状态变更
+	listLoading(state,isShow){
+		state.listLoading=isShow;
+	},
+	//表格选中行数据状态变更
+	selectsChange(state,selects){
+		state.selects=selects;
+	},
+	//表格翻页状态变更
+	currentChange(state,currentPage){
+		state.currentPage=currentPage;
+	},
+	//表格每页显示条数状态变更
+	sizeChange(state,pageSize){
+		state.pageSize=pageSize;
+	},
+	//查询条件过虑器状态充更
+	resetFilters(state,filters){
+		state.filters=filters;
+	}
+};
+
+//导出
 export default{
+	//启用命名空间
+	namespaced:true,
 	state,
 	getters,
 	actions,

@@ -60,8 +60,7 @@
 </template>
 
 <script>
-import {getDepartmentList,removeDepartment,addDepartment,editDepartment} from '../../service/system';
-import { getUserListPage, removeUser, batchRemoveUser, editUser, addUser } from '../../service/api';
+import {getDepartmentList,removeDepartment,addDepartment,editDepartment} from '@/service/api';
 	export default{
 		name:'Department',
 		 data() {

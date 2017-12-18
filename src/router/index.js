@@ -15,9 +15,9 @@ router.beforeEach((to,from,next)=>{
 		return;
 	}
 	let user=JSON.parse(sessionStorage.getItem('user'));
-	if(!user && to.meta.isAuth){
+	if(!user && to.meta.isLogin){
 		next({path:'/login'});
-	}else if(to.meta.isAuth){
+	}else if(to.meta.isLogin && to.meta.isAuth){
 
 		//权限验证，深入最多三级菜单判断
 		let isAuth=false;
