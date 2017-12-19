@@ -1,7 +1,7 @@
 <template>
 	<section>
         <!--新增/修改界面-->
-	    <el-dialog :title="formTitle" :visible.sync="formVisible" :close-on-click-modal="false">
+	    <el-dialog :title="formTitle" :visible.sync="formVisible" :close-on-click-modal="false" width="700px">
 	    	<el-form :model="form" label-width="100px" :rules="formRules" ref="form">
 	            <el-form-item label="员工姓名" prop="employeename">
 	                <el-input v-model="form.employeename" auto-complete="off"></el-input>

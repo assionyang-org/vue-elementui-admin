@@ -80,9 +80,7 @@ const actions={
 };
 
 //mutations
-const mutations={
-	//员工列表数据状态变更
-	loadList(state,param){
+const mutations={loadList(state,param){
 		state.total=param.total;
 		state.employees=param.employees;
 	},
@@ -106,6 +104,8 @@ const mutations={
 	resetFilters(state,filters){
 		state.filters=filters;
 	}
+	//员工列表数据状态变更
+	
 };
 
 //导出

@@ -2,43 +2,38 @@
 ***系统主窗体布局***
 -->
 <template>
-  <el-container v-loading="sysloading">
-    <!--头部-->
-  	<el-header class="header">
-      <el-col :span="12">
-        <el-col :span="12" :class="collapsed?'logo-mini':'logo-long'">
-          {{collapsed?logoMiniName:logoLongName}}
-        </el-col>
-        <el-col :span="12">
-          <el-button style="margin-left:10px;" @click="collapse"><i :class="collapsed?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i></el-button>
-        </el-col>
-      </el-col>
-      <el-col :span="12">
-        <el-col :span="24" style="text-align:right;"><UserInfo></UserInfo></el-col>
-      </el-col>
-  	</el-header>
-
-    <!--主体内容-->
-    <el-container>
-      <!--左侧-->
-      <el-scrollbar>
+    <el-container v-loading="sysloading">
         <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
-          <LeftMenu :collapsed="collapsed"></LeftMenu>
+            <!--左侧-->
+            <el-col :span="24" :class="collapsed?'logo-mini':'logo-long'">
+                {{collapsed?logoMiniName:logoLongName}}
+            </el-col>
+            <el-col :span="24">
+                <LeftMenu :collapsed="collapsed"></LeftMenu>
+            </el-col>
         </el-aside>
-      </el-scrollbar>
-      <!--右侧-->
-      <el-main :class="collapsed?'main-mini':''">
-        <el-col :span="24" style="background-color:#fff;height:71px;;">
-          <!--面包屑-->
-          <Breadcrumb></Breadcrumb>
-        </el-col>
-        <el-col :span="24" style="background-color:#fff; border: 20px solid #f0f2f5; padding: 20px;">
-          <!--主体内容路由视图-->
-          <router-view></router-view>     
-        </el-col>
-      </el-main>
+        <!--右侧-->
+        <el-container>
+            <!--头部-->
+            <el-header class="header">
+                <el-col :span="12" style="background-color:red;">
+                    <el-button style="margin-left:10px;" @click="collapse"><i :class="collapsed?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i></el-button>
+                </el-col>
+                <el-col :span="12" style="text-align:right;background-color:blue;"><UserInfo></UserInfo></el-col>
+            </el-header>
+            <!--正文-->
+            <el-main :class="collapsed?'main-mini':''">
+                <el-col :span="24" style="background-color:#fff;height:71px;;">
+                    <!--面包屑-->
+                    <Breadcrumb></Breadcrumb>
+                </el-col>
+                <el-col :span="24" style="background-color:#fff; border: 20px solid #f0f2f5; padding: 20px;">
+                    <!--主体内容路由视图-->
+                    <router-view></router-view>     
+                </el-col>
+            </el-main>
+        </el-container>
     </el-container>
-  </el-container>
 </template>
 
 <script>
@@ -46,6 +41,9 @@
 import LeftMenu from '@/views/components/LeftMenu'
 import UserInfo from '@/views/components/UserInfo'
 import Breadcrumb from '@/views/components/Breadcrumb'
+//引用vuex的导入语法糖功能
+import {createNamespacedHelpers} from 'vuex';
+const {mapGetters,mapActions}=createNamespacedHelpers('app');
 	export default{
 		name:'Main',
 		components:{
@@ -53,27 +51,29 @@ import Breadcrumb from '@/views/components/Breadcrumb'
       UserInfo,
       Breadcrumb
 		},
+    computed:{
+      ...mapGetters(['logoLongName','logoMiniName','collapsed','sysloading'])
+    },
 		data(){
 			return{
-        //定义默认属性值
-				logoLongName:'Vue ElementUI Admin',//宽菜单LOGO文本
-				logoMiniName:'V',//窄菜单LOGO文本
-			  collapsed:false,//菜单折叠状态
-        sysloading:false//系统加载状态
+
 			}
 		},
 		methods: {
+      ...mapActions(['setLogoLongName','setLogoMiniName','setCollapsed','setSysLoading']),
 			//折叠导航栏，状态保存在sessionStorage中刷新保持状态
 			collapse:function(){
-				this.collapsed=!this.collapsed;
-        sessionStorage.setItem('collapsed',this.collapsed);
+				let collapse=!this.collapsed;
+        this.setCollapsed(collapse);
+        localStorage.setItem('collapsed',collapse);
+
 			}
 		},
     mounted(){
-      this.collapsed=sessionStorage.getItem('collapsed')=="true";
+      this.setCollapsed(localStorage.getItem('collapsed')=="true");
       //系统加载显示延迟一秒
       setTimeout(() => {
-        this.sysloading=false;
+        this.setSysLoading(false);
       }, 1000);
     }
 	}
