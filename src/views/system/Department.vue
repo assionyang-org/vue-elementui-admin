@@ -27,6 +27,9 @@
               <el-form-item label="状态">
                 <el-switch v-model="addform.status"></el-switch>
               </el-form-item>
+              <el-form-item label="角色">
+                <el-transfer :titles="['所有角色', '授予角色']"></el-transfer>
+              </el-form-item>
               <el-form-item>
                 <el-button type="primary" @click="add" >新增</el-button>
                 <el-button @click="clearForm">重置</el-button>
@@ -43,6 +46,9 @@
               </el-form-item>
               <el-form-item label="状态">
                 <el-switch v-model="form.status"></el-switch>
+              </el-form-item>
+              <el-form-item label="角色">
+                <el-transfer :titles="['所有角色', '授予角色']"></el-transfer>
               </el-form-item>
               <el-form-item>
                 <el-button type="warning" @click="edit">修改</el-button>

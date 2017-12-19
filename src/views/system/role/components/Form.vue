@@ -1,19 +1,42 @@
 <template>
 	<section>
         <!--新增/修改界面-->
-	    <el-dialog :title="formTitle" :visible.sync="formVisible" :close-on-click-modal="false" width="700px">
+	    <el-dialog :title="formTitle" :visible.sync="formVisible" :close-on-click-modal="false" heigth="800px">
 	    	<el-form :model="form" label-width="100px" :rules="formRules" ref="form">
-	            <el-form-item label="员工姓名" prop="employeename">
-	                <el-input v-model="form.employeename" auto-complete="off"></el-input>
+	            <el-col :span="16">
+	               <el-form-item label="角色名称" prop="rolename">
+	                <el-input v-model="form.rolename" auto-complete="off"></el-input>
 	            </el-form-item>
-			    <el-form-item label="帐号" prop="employeename">
-	                <el-input v-model="form.employeename" auto-complete="off"></el-input>
+			    <el-form-item label="角色备注" prop="roledesc">
+	                <el-input v-model="form.roledesc" auto-complete="off"></el-input>
 	            </el-form-item>
 			    <el-form-item label="状态">
                     <el-switch v-model="form.status"></el-switch>
                 </el-form-item>
-                <el-form-item label="角色">
-                    <el-transfer :titles="['所有角色', '授予角色']"></el-transfer>
+	            </el-col>
+	            <el-col :span="8">
+                   <el-form-item label="权限">
+
+<el-tree
+  :data="data3"
+  show-checkbox
+  node-key="id"
+  :default-expanded-keys="[2, 3]"
+  :default-checked-keys="[5]">
+</el-tree>
+                   </el-form-item>
+	            </el-col>
+	        </el-form>
+	        <div slot="footer" class="dialog-footer">
+				<el-button @click.native="formVisible = false">取消</el-button>
+				<el-button type="primary" @click.native="formSubmit" :loading="formLoading">提交</el-button>
+		    </div>
+	    </el-dialog>
+
+	    <el-dialog :title="formTitle" :visible.sync="formVisible" :close-on-click-modal="false" width="740px">
+	    	<el-form :model="form" label-width="100px" :rules="formRules" ref="form">
+	            <el-form-item>
+                    <el-transfer :titles="['所有帐号', '扔有帐号']"></el-transfer>
                 </el-form-item>
 	        </el-form>
 	        <div slot="footer" class="dialog-footer">
@@ -27,6 +50,8 @@
                 <el-button size="small" type="primary" @click="formShow('add')">新增</el-button>
                 <el-button size="small" type="primary" @click="formShow('edit')" :disabled="selects.length!==1">编辑</el-button>
                 <el-button size="small" type="danger" @click="remove" :disabled="selects.length===0">删除</el-button>
+                <el-button size="small" type="success" @click="formShow('edit')" :disabled="selects.length!==1">拥有该角色部门</el-button>
+                <el-button size="small" type="success" @click="formShow('edit')" :disabled="selects.length!==1">拥有该角色帐号</el-button>
                 <el-button size="small" type="info" @click="exportExcel" :loading="excelExportLoding" :disabled="selects.length===0">导出Excel</el-button>
             </el-button-group>
         </el-col>
@@ -85,17 +110,52 @@ const {mapGetters,mapActions}=createNamespacedHelpers('system/user');
 					version:1,
 					created_at:Date(),
 					updated_at:Date()
-				}
+				},
+				data3: [{
+          id: 1,
+          label: '一级 2',
+          children: [{
+            id: 3,
+            label: '二级 2-1',
+            children: [{
+              id: 4,
+              label: '三级 3-1-1'
+            }, {
+              id: 5,
+              label: '三级 3-1-2',
+              disabled: true
+            }]
+          }, {
+            id: 2,
+            label: '二级 2-2',
+            disabled: true,
+            children: [{
+              id: 6,
+              label: '三级 3-2-1'
+            }, {
+              id: 7,
+              label: '三级 3-2-2',
+              disabled: true
+            }]
+          }]
+        }],
+         defaultProps: {
+          children: 'children',
+          label: 'label'
+        },
+        selects:[]
 			}
 		},
 		//计算属性
 		computed:{
 			//导入store的getters属性
-			...mapGetters(['selects'])
+			//...mapGetters(['selects'])
 		},
 		methods:{
 			//导入actions方法
-			...mapActions(['getUsers','listLoading']),
+			//...mapActions(['getUsers','listLoading']),
+			getUsers(){},
+			listLoading(){},
 			//导出Excel
 			exportExcel(){
 				this.excelExportLoding=true;

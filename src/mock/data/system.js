@@ -64,28 +64,11 @@ const LoginUsers = [
           },
           {
             id:9,
-            name:'RoleAuth',
-            path:'',
+            name:'Role',
+            path:'role',
             icon:'',
-            title:'权限管理',
-            children:[
-               {
-                 id:10,
-                 name:'Role',
-                 path:'role',
-                 icon:'',
-                 title:'角色',
-                 children:[]
-               },
-               {
-                 id:11,
-                 name:'Auth',
-                 path:'auth',
-                 icon:'',
-                 title:'权限',
-                 children:[]
-               }
-            ]
+            title:'角色管理',
+            children:[]
           }
       ]
       }
@@ -142,28 +125,11 @@ const LoginUsers2 = [
           },
           {
             id:9,
-            name:'RoleAuth',
-            path:'',
+            name:'Role',
+            path:'role',
             icon:'',
             title:'权限管理',
-            children:[
-               {
-                 id:10,
-                 name:'Role',
-                 path:'role',
-                 icon:'',
-                 title:'角色',
-                 children:[]
-               },
-               {
-                 id:11,
-                 name:'Auth',
-                 path:'auth',
-                 icon:'',
-                 title:'权限',
-                 children:[]
-               }
-            ]
+            children:[]
           }
       ]
       }
