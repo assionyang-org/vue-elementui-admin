@@ -9,6 +9,11 @@
     <el-dropdown-item command="logout" divided>退出</el-dropdown-item>
   </el-dropdown-menu>
   </el-dropdown>
+
+
+
+  <el-dialog title="修改密码" :visible.sync="dialogFormVisible">123123
+     </el-dialog>
   </section>
 </template>
 
@@ -50,7 +55,8 @@
         });
         }
         if(command=="config"){
-          this.$router.push({path:'/config'});
+          //this.$router.push({path:'/config'});
+          this.dialogFormVisible=true;
         }
 				
 			}
