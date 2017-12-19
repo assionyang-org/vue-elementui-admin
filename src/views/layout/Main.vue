@@ -16,10 +16,10 @@
         <el-container>
             <!--头部-->
             <el-header class="header">
-                <el-col :span="12" style="background-color:red;">
+                <el-col :span="12">
                     <el-button style="margin-left:10px;" @click="collapse"><i :class="collapsed?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i></el-button>
                 </el-col>
-                <el-col :span="12" style="text-align:right;background-color:blue;"><UserInfo></UserInfo></el-col>
+                <el-col :span="12" style="text-align:right;"><UserInfo></UserInfo></el-col>
             </el-header>
             <!--正文-->
             <el-main :class="collapsed?'main-mini':''">
@@ -80,65 +80,75 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
 </script>
 
 <style scoped>
-  .header {
-    padding-left: 0px;
-    background-color: #ffffff;
-    color: #333;
-    line-height: 60px;
-    height:60px;
-    color:#fff;
-    width: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 5;
-    box-shadow: 1px 1px 5px #ccc;
-    -webkit-box-shadow: 1px 1px 5px #ccc;
-    -moz-box-shadow: 1px 1px 5px #ccc;
-    -o-box-shadow: 1px 1px 5px #ccc;
+
+  
+
+
+  /*左侧*/
+  .el-container {
+    height: 100%;
   }
   .logo-long,
   .logo-mini {
-  	color:#fff;
+    color:#fff;
     font-size:25px;
     width:260px;
     text-align: center;
     background-color: #072140;
-    -webkit-box-shadow: 1px 1px 7px #333;
-    -moz-box-shadow: 1px 1px 7px #333;
-    -o-box-shadow: 1px 1px 7px #333;
   }
-  .logo-mini  {
-    width:65px;
+  .logo-long {
+    height: 60px;
+    line-height: 60px;
   }
-  .aside-long, .aside-mini{
-  	background-color:#031529;
-    width: 260px;
-    position: fixed;
-    top: 0;
-    left: 0;
-    margin-top: 59px;
-    height: calc(100% - 59px);
+  .el-aside {
+    background: #000;
+    height: 100%;
+    overflow: hidden;
+    position: relative;
     z-index: 6;
     -webkit-box-shadow: 1px 1px 7px #333;
     -moz-box-shadow: 1px 1px 7px #333;
     -o-box-shadow: 1px 1px 7px #333;
+  }
+  .aside-long, .aside-mini{
+  	background-color:#031529;
+    width: 260px;
+    height: 100%;
+    
     overflow-y: auto;
   }
   .aside-mini {
     width: 65px;
     overflow: inherit;
   }
+
+  /*右侧*/
+  .header {
+    padding-left: 0px;
+    background-color: #fff;
+    color: #333;
+    line-height: 60px;
+    height:60px;
+    color:#fff;
+    width: 100%;
+    z-index: 5;
+    box-shadow: 1px 1px 5px #ccc;
+    -webkit-box-shadow: 1px 1px 5px #ccc;
+    -moz-box-shadow: 1px 1px 5px #ccc;
+    -o-box-shadow: 1px 1px 5px #ccc;
+  }
+  
+  .logo-mini  {
+    width:65px;
+    height: 60px;
+    line-height: 60px;
+  }
   .el-main {
-    margin-top: 60px;
-    padding: 0 0 0 260px;
     background-color: #f0f2f5;
     width: 100%;
+    padding: 0;
   }
-  .main-mini {
-    margin-top: 60px;
-    padding-left: 60px;
-  }
+  
   .el-menu--collapse .el-submenu .el-menu {
     display: block;
   }
