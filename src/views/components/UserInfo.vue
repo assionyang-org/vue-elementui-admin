@@ -12,7 +12,7 @@
 
 
 
-  <el-dialog title="修改密码" :visible.sync="dialogFormVisible">123123
+  <el-dialog title="修改密码" :visible.sync="dialogFormVisible" append-to-body>123123
      </el-dialog>
   </section>
 </template>
@@ -32,7 +32,7 @@
     data(){
       return{
         name:'',
-        dialogFormVisible: false,
+        dialogFormVisible: false
       }
     },
     mounted(){
@@ -58,7 +58,6 @@
           //this.$router.push({path:'/config'});
           this.dialogFormVisible=true;
         }
-				
 			}
 		}
 	}
