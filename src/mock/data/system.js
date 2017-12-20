@@ -2,8 +2,8 @@ import Mock from 'mockjs'
 const LoginUsers = [
   {
     id: 1,
-    username: 'admin',
-    password: '123456',
+    loginuser: 'admin',
+    loginpwd: '123456',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
     name: '杨春来',
     menus:[
@@ -79,8 +79,8 @@ const LoginUsers = [
 const LoginUsers2 = [
   {
     id: 1,
-    username: 'guest',
-    password: '123456',
+    loginuser: 'guest',
+    loginpwd: '123456',
     avatar: 'https://raw.githubusercontent.com/taylorchen709/markdown-images/master/vueadmin/user.png',
     name: '杨春来2',
     menus:[

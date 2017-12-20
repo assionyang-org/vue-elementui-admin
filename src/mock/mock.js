@@ -25,13 +25,13 @@ export default {
 
     //登录
     mock.onPost('/login').reply(config => {
-      let {username, password} = JSON.parse(config.data);
+      let {loginuser, loginpwd} = JSON.parse(config.data);
       return new Promise((resolve, reject) => {
         let user = null;
         setTimeout(() => {
           let hasUser = false;
           hasUser= LoginUsers.some(u => {
-            if (u.username === username && u.password === password) {
+            if (u.loginuser === loginuser && u.loginpwd === loginpwd) {
               user = JSON.parse(JSON.stringify(u));
               user.password = undefined;
               return true;
@@ -40,9 +40,9 @@ export default {
 
           if(!hasUser){
             hasUser= LoginUsers2.some(u => {
-            if (u.username === username && u.password === password) {
+            if (u.loginuser === loginuser && u.loginpwd === loginpwd) {
               user = JSON.parse(JSON.stringify(u));
-              user.password = undefined;
+              user.loginpwd = undefined;
               return true;
             }
             });

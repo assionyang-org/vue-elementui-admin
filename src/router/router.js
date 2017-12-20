@@ -25,7 +25,6 @@ export const appRouter=[
         	{path:'/',redirect:{path:'/dashboard'}},
             {path:'/message',name:'消息显示页',component:resolve=>{require(['@/views/Message'],resolve);},meta:{isLogin:true,isAuth:true}},
     	    {path:'/dashboard',name:'Dashboard',component:resolve=>{require(['@/views/Dashboard'],resolve);},meta:{isLogin:true,isAuth:true}},
-            {path:'/config',name:'配置',component:resolve=>{require(['@/views/system/Config'],resolve);},meta:{isLogin:true,isAuth:false}},
     	    {path:'/department',name:'部门管理',component:resolve=>{require(['@/views/system/Department'],resolve);}},
     	    {path:'/employee',name:'员工管理',component:resolve=>{require(['@/views/system/employee/Container'],resolve);},meta:{isLogin:true,isAuth:true}},
     	    {path:'/user',name:'帐号管理',component:resolve=>{require(['@/views/system/user/Container'],resolve);},meta:{isLogin:true,isAuth:true}},

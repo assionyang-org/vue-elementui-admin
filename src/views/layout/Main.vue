@@ -3,12 +3,14 @@
 -->
 <template>
     <el-container v-loading="sysloading">
+        <!--左侧-->
         <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
-            <!--左侧-->
+            <!--LOGO-->
             <el-col :span="24" :class="collapsed?'logo-mini':'logo-long'">
                 {{collapsed?logoMiniName:logoLongName}}
             </el-col>
             <el-col :span="24">
+                <!--菜单-->
                 <LeftMenu :collapsed="collapsed"></LeftMenu>
             </el-col>
         </el-aside>
@@ -21,7 +23,7 @@
                 </el-col>
                 <el-col :span="12" style="text-align:right;"><UserInfo></UserInfo></el-col>
             </el-header>
-            <!--正文-->
+            <!--BODY-->
             <el-main :class="collapsed?'main-mini':''">
                 <el-col :span="24" style="background-color:#fff;height:71px;;">
                     <!--面包屑-->
@@ -65,11 +67,12 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
 			collapse:function(){
 				let collapse=!this.collapsed;
         this.setCollapsed(collapse);
+        //将菜单的打开状态保存到浏览器的localStorage中
         localStorage.setItem('collapsed',collapse);
-
 			}
 		},
     mounted(){
+      //先从浏览器localStorage中读出菜单状态
       this.setCollapsed(localStorage.getItem('collapsed')=="true");
       //系统加载显示延迟一秒
       setTimeout(() => {
@@ -80,11 +83,7 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
 </script>
 
 <style scoped>
-
-  
-
-
-  /*左侧*/
+  /*容易样式*/
   .el-container {
     height: 100%;
   }

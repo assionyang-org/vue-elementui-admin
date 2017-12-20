@@ -31,7 +31,7 @@
                 <el-transfer :titles="['所有角色', '授予角色']"></el-transfer>
               </el-form-item>
               <el-form-item>
-                <el-button type="primary" @click="add" >新增</el-button>
+                <el-button type="primary" @click="add" :disabled="addform.parent_sysno<=0 || addform.departmentname===''">新增</el-button>
                 <el-button @click="clearForm">重置</el-button>
               </el-form-item>
         </el-form>
@@ -51,8 +51,8 @@
                 <el-transfer :titles="['所有角色', '授予角色']"></el-transfer>
               </el-form-item>
               <el-form-item>
-                <el-button type="warning" @click="edit">修改</el-button>
-                <el-button type="danger" @click="remove">删除</el-button>
+                <el-button type="warning" @click="edit" :disabled="form.sysno<=0 || form.departmentname===''">修改</el-button>
+                <el-button type="danger" @click="remove" :disabled="form.sysno<=0 || form.departmentname===''">删除</el-button>
                 <el-button @click="clearForm">重置</el-button>
               </el-form-item>
         </el-form>
