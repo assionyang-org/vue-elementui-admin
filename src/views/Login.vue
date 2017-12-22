@@ -10,14 +10,15 @@
             <el-input type="password" v-model="loginForm.loginpwd" auto-complete="off" placeholder="密码" @keyup.enter.native="loginIn"></el-input>
         </el-form-item>
         <el-checkbox v-model="checked" class="remember">记住密码</el-checkbox>
-        <el-form-item style="width:100%;">
+        <el-form-item style="width:100%;margin-top:10px;">
             <el-button type="primary" style="width:100%;" @click.native.prevent="loginIn" :loading="logining">登录</el-button>
+            <!--<el-button type="primary" style="width:50%;" @click.native.prevent="test" :loading="logining">测试</el-button>-->
         </el-form-item>
     </el-form>
 </template>
 
 <script>
-import {requestLogin} from '../service/api';
+import {requestLogin,login} from '../service/api';
 export default {
     name:'Login',
     data() {
@@ -64,6 +65,12 @@ export default {
                     return false;
                 }
             });
+        },
+        test(){
+            login({account:'admin'}).then(data=>{
+                console.log(data);
+            });
+            
         }
     }
 }
