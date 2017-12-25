@@ -4,9 +4,9 @@
 <template>
     <el-container v-loading="sysloading">
         <!--左侧-->
-        <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'220px'">
+        <el-aside :class="collapsed?'aside-mini':'aside-long'" width="collapsed?'65px':'260px'">
             <!--LOGO-->
-            <el-col :span="24" :class="collapsed?'logo-mini':'logo-long'">
+            <el-col :span="24" class="logo">
                 {{collapsed?logoMiniName:logoLongName}}
             </el-col>
             <el-col :span="24">
@@ -21,15 +21,15 @@
                 <el-col :span="12">
                     <el-button style="margin-left:10px;" @click="collapse"><i :class="collapsed?'el-icon-d-arrow-right':'el-icon-d-arrow-left'"></i></el-button>
                 </el-col>
-                <el-col :span="12" style="text-align:right;"><UserInfo></UserInfo></el-col>
+                <el-col :span="12" class="text-right"><UserInfo></UserInfo></el-col>
             </el-header>
             <!--BODY-->
-            <el-main :class="collapsed?'main-mini':''">
-                <el-col :span="24" style="background-color:#fff;height:71px;;">
+            <el-main>
+                <el-col :span="24" class="nav">
                     <!--面包屑-->
                     <Breadcrumb></Breadcrumb>
                 </el-col>
-                <el-col :span="24" style="background-color:#fff; border: 20px solid #f0f2f5; padding: 20px;">
+                <el-col :span="24" class="content">
                     <!--主体内容路由视图-->
                     <router-view></router-view>     
                 </el-col>
@@ -87,17 +87,14 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
   .el-container {
     height: 100%;
   }
-  .logo-long,
-  .logo-mini {
+  .logo {
     color:#fff;
     font-size:25px;
-    width:260px;
-    text-align: center;
-    background-color: #072140;
-  }
-  .logo-long {
     height: 60px;
     line-height: 60px;
+    width: 100%;
+    text-align: center;
+    background-color: #072140;
   }
   .el-aside {
     background: #000;
@@ -137,17 +134,12 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
     -o-box-shadow: 1px 1px 5px #ccc;
   }
   
-  .logo-mini  {
-    width:65px;
-    height: 60px;
-    line-height: 60px;
-  }
   .el-main {
     background-color: #f0f2f5;
     width: 100%;
     padding: 0;
   }
-  
+
   .el-menu--collapse .el-submenu .el-menu {
     display: block;
   }
@@ -155,5 +147,17 @@ const {mapGetters,mapActions}=createNamespacedHelpers('app');
     -webkit-transition: 0s !important;
     transition: 0s !important;
     background: #f00;
+  }
+
+  /*面包屑*/
+  .nav {
+    background-color:#fff;
+    height:71px;
+  }
+
+  .content {
+    background-color:#fff; 
+    border: 20px solid #f0f2f5; 
+    padding: 20px;
   }
 </style>

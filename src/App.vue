@@ -59,4 +59,12 @@ body {
 .fade-leave-active {
   opacity: 0;
 }
+
+.text-center {
+  text-align: center;
+}
+
+.text-right {
+  text-align: right;
+}
 </style>
