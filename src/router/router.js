@@ -5,7 +5,19 @@ import Login from '@/views/Login'
 export const loginRouter = {
     path: '/login',
     name: '登录',
-    component: resolve => { require(['@/views/Login'], resolve); },
+    component: resolve => { require(['@/views/system/bills/Login'], resolve); },
+    meta:{isLogin:false,isAuth:false},
+};
+export const indexRole = {
+    path: '/index',
+    name: '首页',
+    component: resolve => { require(['@/views/system/bills/Index'], resolve); },
+    meta:{isLogin:false,isAuth:false},
+};
+export const contentRole = {
+    path: '/content',
+    name: '首页',
+    component: resolve => { require(['@/views/system/bills/Content'], resolve); },
     meta:{isLogin:false,isAuth:false},
 };
 export const page404Router = {
@@ -37,6 +49,8 @@ export const appRouter=[
 //导出
 export const routers=[
     loginRouter,
+    indexRole,
+    contentRole,
     ...appRouter,
     page404Router
 ];
